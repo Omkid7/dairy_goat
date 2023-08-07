@@ -1,0 +1,72 @@
+{% extends 'hod_templates/base_template.html'%} {% load static %} {% block page_title %}
+<h4> {{dogs.category}}</h4> {% endblock page_title %} {% block main_content %}
+<div class="main" id="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 mt-3 p-2">
+                <div class="card " style="  background: #e0eafc !important;
+                  ">
+                    <div class="pid-box-1 d-flex justify-content-center" data-pid-imprintid="8011">
+    
+                        <img src="{{dogs.dog_pic.url}}" data-orig-height="216" width="343" height="270" alt=" ">
+                       
+                    </div>
+                </div>
+                <h4>{{dogs.dog_name}}</h4>
+
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card">
+                <div class="pid-details pt-4">
+                  <ul class="ddc-list-unstyled " style="list-style-type: none;">
+                      <li><b>MWT Leader:</b> <a href="#" class="imprintdoglink"> {{dogs.mwt}}</a></li>
+                      <li><b>Classified as:</b> <a href="#"> {{dogs.dog_imprint }}</a></li>
+                      <li><b>Service No:</b> {{dogs.dog_svcno}}</li>
+                      <li><b>Initial Owner:</b> {{dogs.manufacture}}</li>
+                      <li><b>Years in Service:</b> {{dogs.quantity}}</li>
+                      <li><b>Certification No:</b> {{dogs.certificate}}</li>
+                      <li><b>Veterinary Assigned:</b> {{dogs.veterinary}}</li>
+                      <li><b>ROD:</b> {{dogs.valid_to}}</li>
+                      <li><b>Gender:</b> {{dogs.gender}}</li>
+                      <li> <b>Colour:</b>{{dogs.dog_color}}</li>
+
+                    </ul>
+              </div>
+              </div>          
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card" >
+                <div class="pid-box-1 d-flex justify-content-left" data-pid-imprintid="8011">
+                  <ul style="list-style-type: none;">
+                      <li>
+                          <b>Description</b>
+
+                      </li>
+                      <li>
+                          {{dogs.dog_description}}
+
+                      </li>
+                    
+
+                  </ul>
+                </div>
+
+
+              </div>
+              
+           </div>
+
+
+
+        </div>
+
+  
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

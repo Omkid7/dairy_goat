@@ -1,0 +1,186 @@
+from django.urls import path
+
+from canine import InchargeView
+from .import HODViews, VeterinaryView, handler_view
+from .import pharmacistViews,views,clerkViews
+from django.contrib.auth import views as auth_views
+from djgeojson.views import GeoJSONLayerView
+from .models import Location
+
+
+
+urlpatterns=[
+    path('',HODViews.adminDashboard,name='admin_dashboard'),
+    path('data.geojson/', GeoJSONLayerView.as_view(model=Location, properties=('title', 'description', 'picture_url','dog_picture_url')), name='data'),
+    path('admin_user/handler_form/',HODViews.createhandler,name='handler_form'),
+    path('admin_user/all_handler/',HODViews.allhandler,name='all_handler'),
+    path('login/gallary',views.gallary,name='gallary'),
+    path('login/',views.loginPage,name='login'),
+    path('logout/',views.logoutUser,name='logout'), 
+    # path('get_user_details/', views.get_user_details, name="get_user_details"),
+    path('admin_user/add_pharmacist/',HODViews.createPharmacist,name='add_pharmacist'),
+    path('admin_user/manage_pharmacist/',HODViews.managePharmacist,name='manage_pharmacist'),
+    path('admin_user/add_doctor/',HODViews.createDoctor,name='add_doctor'),
+    path('admin_user/manage_doctor/',HODViews.manageDoctor,name='manage_doctor'),
+    path('admin_user/add_Clerk/',HODViews.createPharmacyClerk,name='add_Clerk'),
+    path('admin_user/admin_user/manage_Clerk/',HODViews.managePharmacyClerk,name='manage_Clerk'),
+    path('admin_user/add_dog/',HODViews.addDog,name='add_dog'),
+    path('admin_user/map/',HODViews.map,name='map'),
+    path('admin_user/add_category/',HODViews.addCategory,name='add_category'),
+    path('admin_user/add_unit/',HODViews.addUnit,name='add_unit'),
+    path('admin_user/add_owner/',HODViews.addOwner,name='add_owner'),
+    path('admin_user/add_certificate/',HODViews.addCertification,name='add_certificate'),
+    path('admin_user/add_team/',HODViews.addMwt,name='add_team'),
+    path('admin_user/training/',HODViews.addTraining,name='training'),
+    path('admin_user/add_course/',HODViews.addCourse,name='add_course'),
+    path('admin_user/add_skilltest/',HODViews.addSkilltest,name='add_skilltest'),
+    path('admin_user/add_assessment/',HODViews.addAssessment,name='add_assessment'),
+    path('admin_user/add_training_session/',HODViews.addTraining_sessions,name='add_training_session'),
+    path('admin_user/add_casting/',HODViews.addCasting,name='add_casting'),
+    path('admin_user/add_employment/',HODViews.Employment,name='add_employment'),
+    path('admin_user/manage_Dog/',HODViews.manageDog,name='manage_Dog'),    
+    path('admin_user/prescribe_dog/',HODViews.addPrescription,name='prescribe'),
+    path('admin_user/edit_Handler/<handler_id>/',HODViews.edithandler,name='edit_Handler'),
+    # path('add_Handler_save/',HODViews.editHandlerSave,name='edit_Handler_save'),
+    path('admin_user/delete_Handler/<str:pk>/',HODViews.confirmDelete,name='delete_Handler'),
+    path('admin_user/handler_personalRecords/<pk>/',HODViews.handler_personalRecords,name='handler_record'),
+    path('admin_user/delete_prescription/<str:pk>/',HODViews.deletePrescription,name='delete_prescription'),
+    path('admin_user/doctor_profile/',VeterinaryView.doctorProfile,name='doctor_profile'),
+    path('admin_user/hod_profile/',HODViews.hodProfile,name='hod_profile'),
+    path('admin_user/delete_doctor/<str:pk>/',HODViews.deleteDoctor,name='delete_doctor'),
+    path('admin_user/delete_pharmacist/<str:pk>/',HODViews.deletePharmacist,name='delete_pharmacist'),
+    path('admin_user/delete_receptionist/<str:pk>/',HODViews.deletePharmacyClerk,name='delete_clerk'),
+    path('admin_user/hod_profile/editAdmin_profile/',HODViews.editAdmin,name='edit-admin'),
+    path('admin_user/delete_dog/<str:pk>/',HODViews.deletedog,name='delete_dog'),
+    path('admin_user/edit_pharmacist/<staff_id>/', HODViews.editPharmacist, name="edit_pharmacist"),
+    path('admin_user/edit_doctor/<doctor_id>/', HODViews.editDoctor, name="edit_doctor"),
+    path('admin_user/edit_receptionist/<clerk_id>/', HODViews.editPharmacyClerk, name="edit_clerk"),
+    path('admin_user/edit_dog/<pk>/', HODViews.editdog, name="edit_dog"),
+    path('admin_user/receive_dog/<pk>/', HODViews.receivedog, name="receive_dog"),
+    path('admin_user/reorder_level/<str:pk>/', HODViews.reorder_level, name="reorder_level"),
+    path('admin_user/dog_details/<str:pk>/', HODViews.dogDetails, name="dog_detail"),
+    path('Handler_feedback_message/', pharmacistViews.handler_feedback_message, name="Handler_feedback_message"),
+    path('Handler_feedback_message_reply/', pharmacistViews.handler_feedback_message_reply, name="Handler_feedback_message_reply"),
+    path('admin_user/delete_Handler_feedback/<str:pk>/', pharmacistViews.deletefeedback, name="delete_fed"),
+    path('delete_details/<str:pk>/', pharmacistViews.deleteDispense4, name="del_disp"),
+
+
+    #Pharmacist
+    path('pharmacist_home/',pharmacistViews.pharmacistHome,name='pharmacist_home'),
+    path('pharmacist_manage_Handlers/',pharmacistViews.manageHandlersPharmacist,name='manage_Handler_pharmacist'),
+    path('manage_disp/<pk>/',pharmacistViews.manageDispense,name='pharmacist_disp'),
+    # path('manage_dispe/<str:pk>/',pharmacistViews.dispensedog,name='pharm_disp'),
+    # path('manage_Dog_form/<str:pk>/',pharmacistViews.dispense,name='pharm_disp2'),
+    path('staff_profile/',pharmacistViews.userProfile,name='pharmacist_profile'),
+    path('manage_Dog2/',pharmacistViews.manageDog,name='manage_Dog2'),    
+    path('manage_prescrip/',pharmacistViews.managePrescription,name='pharmacist_prescription'),
+    path('pharmacist_user/dog_details/<str:pk>/', pharmacistViews.dogDetails, name="dog_detail2"),
+
+
+
+    #Veterinary
+    path('reorder_level/<str:pk>/', VeterinaryView.reorder_level, name="reorder_level"),
+    path('doctor_home/',VeterinaryView.doctorHome,name='doctor_home'),
+    path('add_map/',VeterinaryView.addLocation,name='add_map'),
+    path('add_body_weight/',VeterinaryView.add_Monthly_Weight,name='add_body_weight'),
+    path('add_vaccination_category/',VeterinaryView.add_vaccine_category,name='add_vaccination_category'),
+    path('add_deworming/',VeterinaryView.addDeworming,name='add_deworming'),
+    path('add_type_of_deworming/',VeterinaryView.add_Type_of_Deworming,name='add_type_of_deworming'),
+    path('add_vaccination_dog/',VeterinaryView.addVaccination,name='add_vaccination_dog'),
+    path('add_body_weight/',VeterinaryView.add_Monthly_Weight,name='add_body_weight'),
+    path('manage_weight/',VeterinaryView.manageBodyWeight,name='manage_weight'),
+    path('manage_vaccination_dog/',VeterinaryView.manage_vaccination,name='manage_vaccination_dog'),
+    path('edit_vaccine/<str:pk>/',VeterinaryView.editVaccine,name='edit_vaccine'),
+    path('delete_vaccine/<str:pk>/',VeterinaryView.deleteVaccine,name='delete_vaccine'),
+    path('delete_worm/<str:pk>/',VeterinaryView.deleteDeworm,name='delete_worm'),
+    path('edit_weight/<str:pk>/',VeterinaryView.editMonthlyWeight,name='edit_weight'),
+    path('manage_dogs/',VeterinaryView.manageDogs,name='manage_dogs'),
+    path('manage_deworm/',VeterinaryView.manageDeworming,name='manage_deworm'),
+    path('doctor_prescribe_dog/<str:pk>/',VeterinaryView.addPrescription,name='doctor_prescribe2'),
+    path('dog_personalRecords/<str:pk>/',VeterinaryView.dog_personalDetails,name='dog_personalRecords'),
+    path('manage_prescription_doctor/',VeterinaryView.managePrescription,name='manage_precrip_doctor'),
+    path('doctor_prescribe_delete/<str:pk>/',VeterinaryView.deletePrescription,name='doctor_prescrip_delete'),
+    path('monthly_delete/<str:pk>/',VeterinaryView.deleteMonthlyWeight,name='monthly_delete'),
+    path('view_monthly_weight/<str:pk>',VeterinaryView.viewMonthlyWeight,name='view_monthly_weight'),
+    path('doctor_prescribe_edit/<str:pk>/',VeterinaryView.editPrescription,name='doctor_prescrip_edit'),
+
+
+    #Handlers
+    path('handler_profile/',handler_view.handlerProfile,name='handler_profile'),
+    path('add_weapon_training/',handler_view.addWeaponTraining,name='add_weapon_training'),
+    path('add_handlers_score/',handler_view.addHandlerScores,name='add_handlers_scores'),
+    path('leash_training/',handler_view.addLeashTraining,name='leash_training'),
+    path('scounting_training/',handler_view.add_ScountingTraining,name='scounting_training'),
+    path('controlled_training/',handler_view.add_controlled_Training,name='controlled_training'),
+    path('edit_weapon_training/<pk>',handler_view.editWeaponTraining,name='edit_weapon_training'),
+    path('edit_leash_training/<pk>',handler_view.editLeashTraining,name='edit_leash_training'),
+    path('delete_weapon_training/<pk>',handler_view.delete_WeaponTraining,name='delete_weapon_training'),
+    path('all_weapon_training/',handler_view.manage_Weapon_Training,name='all_weapon_training'),
+    path('all_controlled_training/',handler_view.manage_ControlledTraining,name='all_controlled_training'),
+    path('all_handlers_scores/',handler_view.manage_Handlers_scores,name='all_handlers_scores'),
+    path('all_scounting_training/',handler_view.manage_ScountingTraining,name='all_scounting_training'),
+    path('edit_controlled_training/<pk>/',handler_view.editControlledTraining,name='edit_controlled_training'),
+    path('edit_scounting_training/<pk>/',handler_view.editScountingTraining,name='edit_scounting_training'),
+    path('delete_controlled_train/<pk>/',handler_view.delete_ControlledTraining,name='delete_controlled_train'),
+    path('delete_leash_train/<pk>/',handler_view.delete_LeashTraining,name='delete_leash_train'),
+    path('delete_scounting_train/<pk>/',handler_view.delete_ScountingTraining,name='delete_scounting_train'),
+    path('all_leash_training/',handler_view.manage_LeashTraining,name='all_leash_training'),
+    path('view_training/<str:pk>',handler_view.viewTraining,name='view_training'),
+    path('utilization/',handler_view.utilization,name='utilization'),
+    path('manage_utilization/',handler_view.allUtilizaation,name='manage_utilization'),
+    path('edit_utilization/<str:pk>',handler_view.editUtilization,name='edit_utilization'),
+    path('delete_utilization/<str:pk>',handler_view.deleteUtilization,name='delete_utilization'),
+    path('view_utilization/<str:pk>',handler_view.viewUtilization,name='view_utilization'),
+    path('view_scout_train/<str:pk>',handler_view.viewScoutTraining,name='view_scout_train'),
+    path('view_leash_train/<str:pk>',handler_view.viewLeashTraining,name='view_leash_train'),
+    path('view_controlled_train/<str:pk>',handler_view.viewControlledTraining,name='view_controlled_train'),
+    path('add_remarks/<str:pk>/', handler_view.handler_remarks, name="add_remarks"),
+    path('handler_home/',handler_view.handlerHome,name='handler_home'),
+    path('handler_feedback/',handler_view.handler_feedback,name='handler_feedback'),
+    path('staff_feedback_save/', handler_view.handler_feedback_save, name="handler_feedback_save"),
+    path('taken_home/',handler_view.handler_dispense3,name='taken_home'),
+    path('delete_Handler_feedback2/<str:pk>/',handler_view.handlerdeletefeedback, name="delete_fed2"),
+    path('delete_dispen/',handler_view.myPrescriptionDelete,name='taken_delete'),
+
+
+    #Clerk
+    path('add_doctor/',clerkViews.createDoctor,name='add_doctor'),
+    path('manage_doctor/',clerkViews.manageDoctor,name='manage_doctor'),
+    path('delete_doctor/<str:pk>/',clerkViews.deleteDoctor,name='delete_doctor'),
+    path('edit_doctor/<doctor_id>/', clerkViews.editDoctor, name="edit_doctor"),   
+    path('add_incharge/',clerkViews.createIncharge,name='add_incharge'),
+    path('manage_incharge/',clerkViews.manageIncharge,name='manage_incharge'),
+    path('delete_incharge/<str:pk>/',clerkViews.deleteIncharge,name='delete_incharge'),
+    path('edit_incharge/<incharge_id>/', clerkViews.editIncharge, name="edit_incharge"),   
+    path('add_owner/',clerkViews.addOwner,name='add_owner'),
+    path('manage_dog/',clerkViews.manageDog,name='manage_dog'),  
+    path('delete_dog/<str:pk>/',clerkViews.deletedog,name='delete_dog'),
+    path('edit_dog/<pk>/', clerkViews.editDog, name="edit_dog"),
+    path('dog_details/<str:pk>/', clerkViews.dogDetails, name="dog_detail"),
+    path('clerk_profile/',clerkViews.receptionistProfile,name='clerk_profile'),
+    path('add_category/',clerkViews.addCategory,name='add_category'),
+    path('add_classificatio/',clerkViews.addClassification,name='add_classification'),
+    path('add_dog/',clerkViews.addDog,name='add_dog'),
+    path('clerk_home/',clerkViews.clerkHome,name='clerk_home'),
+    path('clerk/Handler_form/',clerkViews.createHandler,name='add_handler'),
+    path('clerk/all_Handlers/',clerkViews.allHandler,name='manage_handler'),
+    path('clerk/edit_Handler/<handler_id>/',clerkViews.editHandler,name='edit_handler'),
+    path('clerk/Handler_personalRecords/<str:pk>/',clerkViews.handler_personalRecords,name='handler_record'),
+    path('clerk/delete_Handler/<str:pk>/',clerkViews.confirmDelete,name='delete_handler'),
+    # path('receptionist/dispense_dog/<str:pk>/',pharmacistViews.dispensedog,name='dispense_dog'),
+  
+
+    # incharge 
+    path('incharge_home/',InchargeView.InchargeHome,name='incharge_home'),  
+    path('reset_password/',auth_views.PasswordResetView.as_view(template_name="password_reset.html"),name="reset_password"),
+
+    path('reset_password_sent/',auth_views.PasswordResetDoneView
+    .as_view(template_name="password_reset_sent.html"),name="password_reset_done"),
+    
+    path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView
+    .as_view(template_name="password_reset_form.html"),name="password_reset_confirm"),
+ 
+
+   path('reset_password_complete/',auth_views.PasswordResetCompleteView
+    .as_view(template_name="password_reset_done.html"),name="password_reset_complete"),
+]

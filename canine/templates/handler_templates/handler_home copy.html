@@ -1,0 +1,325 @@
+{% extends 'handler_templates/base_template.html'%}
+{% load static %}
+
+{% block page_title %}
+ <h4>Dashboard</h4>
+{% endblock page_title %}
+
+{% block link %}
+{% endblock link %}
+
+{% block main_content %}
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<section class="main" id="main">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        
+        <div class="row">
+          <div class="col-lg-3 col-md-6   col-sm-6">
+            <div class="small-box mojahi">
+                <div class="inner">
+                    <h3>{{dog}}</h3>
+
+                    <p>Total MWD</p>
+                </div>
+                <div class="icon uzer">
+                    <i class="fas fa-dog-leashed"></i>
+                </div>
+                <a href="{% url 'all_patients' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+          <!-- ./col -->
+     
+          <!-- ./col -->
+   
+          <div class="col-lg-3 col-md-6   col-sm-6">
+            <div class="small-box mojahi">
+                <div class="inner">
+                    <h3>{{prescip}}</h3>
+
+                    <p>Total Vaccinated Dogs</p>
+                </div>
+                <div class="icon uzer">
+                    <i class="fas fa-dog-leashed"></i>
+                </div>
+                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6   col-sm-6">
+          <div class="small-box mojahi">
+              <div class="inner">
+                  <h3>{{prescip}}</h3>
+
+                  <p>Total Vaccinated Dogs</p>
+              </div>
+              <div class="icon uzer">
+                  <i class="fas fa-dog-leashed"></i>
+              </div>
+              <a href="{% url 'all_patients' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+      </div>
+
+      <div class="col-lg-3 col-md-6   col-sm-6">
+        <div class="small-box mojahi">
+            <div class="inner">
+                <h3>{{prescip}}</h3>
+
+                <p>Total Vaccinated Dogs</p>
+            </div>
+            <div class="icon uzer">
+                <i class="fas fa-dog-leashed"></i>
+            </div>
+            <a href="{% url 'all_patients' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+      <div class="col-md-6 dash-icon">
+        <div class="card info-card sales-card">
+
+            <h5 class="card-title">Breed Analysis <span></span></h5>
+
+            <!-- Line Chart -->
+        <!-- Bar Chart -->
+        <canvas id="barChart" style="max-height: 400px; left: 90px;"></canvas>
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            new Chart(document.querySelector('#barChart'), {
+              type: 'bar',
+              data: {
+                labels: [{% for breed_list in breed_list %} '{{breed_list}}', {% endfor %} ],
+                datasets: [{
+                  label: 'Bar Chart',
+                  data: [ {% for num_list in num_list %} '{{num_list}}',{% endfor %}],
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.3)',
+                    'rgba(255, 159, 64, 0.3)',
+                    'rgba(255, 205, 86, 0.3)',
+                    'rgba(75, 192, 192, 0.3)',
+                    'rgba(54, 162, 235, 0.3)',
+                    'rgba(153, 102, 255, 0.3)',
+                    'rgba(201, 203, 207, 0.3)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                  ],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          });
+        </script>
+        <!-- End Bar CHart -->
+            <!-- End Line Chart -->
+
+          </div>
+
+
+     </div> 
+
+     <div class="col-md-6 dash-icon">
+      <div class="card info-card sales-card">
+          
+          <h5 class="card-title">Training Analysis<span></span></h5>
+
+          <!-- Line Chart -->
+      <!-- Bar Chart -->
+      <canvas id="pieChart" style="max-height: 600px; left: 90px;"></canvas>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          new Chart(document.querySelector('#pieChart'), {
+            type: 'pie',
+            data: {
+              labels: [{% for train_list in train_list %} '{{train_list}}', {% endfor %} ],
+              datasets: [{
+                label: 'Pie Chart',
+                data: [ {% for train_num in train_num %} '{{train_num}}',{% endfor %}],
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.8)',
+                  'rgba(255, 159, 64, 0.8)',
+                  'rgba(255, 205, 86, 0.8)',
+                  'rgba(75, 192, 192, 0.8)',
+                  'rgba(54, 162, 235, 0.8)',
+                  'rgba(153, 102, 255, 0.8)',
+                  'rgba(201, 203, 207, 0.8)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+        });
+      </script>
+      <!-- End Bar CHart -->
+          <!-- End Line Chart -->
+
+        </div>
+
+
+   </div>
+
+   <div class="col-lg-6 ">
+    <div class="card info-card sales-card">
+
+    <h5 class="card-title">Classification Analysis <span></span></h5>
+
+    <!-- Line Chart -->
+<!-- Bar Chart -->
+<canvas id="doughnutChart" style="max-height: 400px; left: 90px;"></canvas>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    new Chart(document.querySelector('#doughnutChart'), {
+      type: 'doughnut',
+      data: {
+        labels: [{% for class_list in class_list %} '{{class_list}}', {% endfor %} ],
+        datasets: [{
+          label: 'Bar Chart',
+          data: [ {% for class_num_list in class_num_list %} '{{class_num_list}}',{% endfor %}],
+          backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(255, 159, 64, 0.8)',
+          'rgba(255, 205, 86, 0.8)',
+          'rgba(75, 192, 192, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(153, 102, 255, 0.8)',
+          'rgba(201, 203, 207, 0.8)'
+          ],
+          borderColor: [
+            'rgb(255, 99, 132)',
+            'rgb(255, 159, 64)',
+            'rgb(255, 205, 86)',
+            'rgb(75, 192, 192)',
+            'rgb(54, 162, 235)',
+            'rgb(153, 102, 255)',
+            'rgb(201, 203, 207)'
+          ],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+<!-- End Bar CHart -->
+    <!-- End Line Chart -->
+
+  </div>
+</div>
+
+
+
+  
+      
+        </div>
+
+
+        <!--  -->
+
+        
+</section>
+
+<div class="col-md-6 dash-icon">
+
+
+  <div id="map">
+
+  </div>
+    </div>
+
+</div>
+</div>
+<script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+<script>
+  var xValues = [100,200,300,400,500,600,700,800,900,1000];
+  
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{ 
+        data: [860,1140,1060,1060,1070,1110,1330,2210,7830,2478],
+        borderColor: "red",
+        fill: false
+      }, { 
+        data: [1600,1700,1700,1900,2000,2700,4000,5000,6000,7000],
+        borderColor: "green",
+        fill: false
+      }, { 
+        data: [300,700,2000,5000,6000,4000,2000,1000,200,100],
+        borderColor: "blue",
+        fill: false
+      }]
+    },
+    options: {
+      legend: {display: false}
+    }
+  });
+  </script>
+
+<script>
+const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+const map = L.map('map')
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: attribution }).addTo(map);
+map.fitWorld();
+</script>
+
+{% endblock main_content %}
+          

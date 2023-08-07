@@ -1,0 +1,785 @@
+{% extends 'hod_templates/base_template.html'%} 
+{% load static %} 
+
+{% block page_title %}
+<h4>Dashboard</h4>
+{% endblock page_title %} {% block main_content %}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Kennel Location</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+
+			<div class="modal-body">{% include 'hod_templates/map.html' %}</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end of the login modal -->
+<!-- <style>.leaflet-container { height: 100%; }</style> -->
+<main id="main" class="main">
+	<div class="pagetitle">
+		<h1>Dashboard</h1>
+		<nav>
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="#">Home</a></li>
+				<li class="breadcrumb-item active">Dashboard</li>
+			</ol>
+		</nav>
+	</div>
+	<!-- End Page Title -->
+
+	<section class="section dashboard">
+		<div class="row">
+			<!-- Left side columns -->
+			<div class="col-lg-8">
+				<div class="row">
+					<!-- Clerk Card -->
+					<div class="col-xxl-4 col-md-6">
+						<div class="card info-card sales-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Dairy workers <span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="fas fa-chalkboard-teacher"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{all_clerks}}</h6>
+										<span class="text-success small pt-1 fw-bold">0.01%</span> <span class="text-muted small pt-2 ps-1">Added</span>
+										<a href="{% url 'manage_Clerk'  %}" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End clerk Card -->
+
+					<!-- Vet Card -->
+					<div class="col-xxl-4 col-md-6">
+						<div class="card info-card revenue-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Veterinary <span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="fas fa-briefcase-medical"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{all_doctors}}</h6>
+										<span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+										<a href="{% url 'manage_doctor'  %}" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End vet Card -->
+
+					<!-- goats Card -->
+					<div class="col-xxl-4 col-xl-12">
+						<div class="card info-card customers-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Goats<span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="fas fa-goat"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{total_dogs}}</h6>
+										<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+										<a href="{% url 'manage_dog'  %}" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- military working dogs  Card -->
+					<!-- handler Card -->
+					<div class="col-xxl-4 col-xl-12">
+						<div class="card info-card customers-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Shepherds<span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="bi bi-people"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{handler_total}}</h6>
+										<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+										<a href="{% url 'all_handler'  %}" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End handler Card -->
+					<!-- Vaccinated dog Card -->
+					<div class="col-xxl-4 col-xl-12">
+						<div class="card info-card customers-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Vaccinated Goats<span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="fas fa-goat"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{prescip}}</h6>
+										<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+										<a href="#" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End vaccinated Card -->
+					<!-- sick dogCard -->
+					<div class="col-xxl-4 col-xl-12">
+						<div class="card info-card customers-card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Total Sick Goats<span></span></h5>
+
+								<div class="d-flex align-items-center">
+									<div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+										<i class="fas fa-goat"></i>
+									</div>
+									<div class="ps-3">
+										<h6>{{all_doctors}}</h6>
+										<span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+										<a href="#" class="stretched-link"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- End sick dog Card -->
+
+					<!-- Reports -->
+					<div class="col-12">
+						<div class="card">
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Breed <span>Analysis</span></h5>
+
+								<!-- Line Chart -->
+								<!-- Bar Chart -->
+								<canvas id="barChart" style="max-height: 400px"></canvas>
+								<script>
+									document.addEventListener("DOMContentLoaded", () => {
+									  new Chart(document.querySelector('#barChart'), {
+									    type: 'bar',
+									    data: {
+									      labels: [{% for breed_list in breed_list %} '{{breed_list}}', {% endfor %} ],
+									      datasets: [{
+									        label: 'Bar Chart',
+									        data: [{% for num_list in num_list %} '{{num_list}}',{% endfor %}],
+									        backgroundColor: [
+									          'rgba(255, 99, 132, 0.2)',
+									          'rgba(255, 159, 64, 0.2)',
+									          'rgba(255, 205, 86, 0.2)',
+									          'rgba(75, 192, 192, 0.2)',
+									          'rgba(54, 162, 235, 0.2)',
+									          'rgba(153, 102, 255, 0.2)',
+									          'rgba(201, 203, 207, 0.2)'
+									        ],
+									        borderColor: [
+									          'rgb(255, 99, 132)',
+									          'rgb(255, 159, 64)',
+									          'rgb(255, 205, 86)',
+									          'rgb(75, 192, 192)',
+									          'rgb(54, 162, 235)',
+									          'rgb(153, 102, 255)',
+									          'rgb(201, 203, 207)'
+									        ],
+									        borderWidth: 1
+									      }]
+									    },
+									    options: {
+									      scales: {
+									        y: {
+									          beginAtZero: true
+									        }
+									      }
+									    }
+									  });
+									});
+								</script>
+								<!-- End Bar CHart -->
+								<!-- End Line Chart -->
+							</div>
+						</div>
+					</div>
+					<!-- End Reports -->
+
+					<!-- Recent Added -->
+					<div class="col-12">
+						<div class="card recent-sales overflow-auto">
+							
+							<div class="filter">
+								<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+								<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									<li class="dropdown-header text-start">
+										<h6>Filter</h6>
+									</li>
+
+									<li><a class="dropdown-item" href="#">Today</a></li>
+									<li><a class="dropdown-item" href="#">This Month</a></li>
+									<li><a class="dropdown-item" href="#">This Year</a></li>
+								</ul>
+							</div>
+
+							<div class="card-body">
+								<h5 class="card-title">Recent Added<span>| Today</span></h5>
+
+								<table class="table table-borderless" id="plist">
+									<thead>
+										<tr>
+											<th scope="col">S/N</th>
+											<th scope="col">SVC No.</th>
+											<th scope="col">Rannk</th>
+											<th scope="col">Name</th>
+											<th scope="col">Unit</th>
+											<th scope="col">Position</th>
+											<th scope="col">Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<th scope="row"><a href="#">1</a></th>
+											<td>153650</td>
+											<td>SGT</td>
+											<td><a href="#" class="text-primary">Mohamed Kassim</a></td>
+											<td>Canine</td>
+											<td>Handler</td>
+											<td><span class="badge bg-success">Approved</span></td>
+										</tr>
+										<tr>
+											<th scope="row"><a href="#">2</a></th>
+											<td>150750</td>
+											<td>CPL</td>
+											<td><a href="#" class="text-primary">Kamau Tom</a></td>
+											<td>Canine</td>
+											<td>Handler</td>
+											<td><span class="badge bg-success">Approved</span></td>
+										</tr>
+										<tr>
+											<th scope="row"><a href="#">3</a></th>
+											<td>98750</td>
+											<td>L/cpl</td>
+											<td><a href="#" class="text-primary">Samson Ndungiu</a></td>
+											<td>Canine</td>
+											<td>Handler</td>
+											<td><span class="badge bg-danger">Rejected</span></td>
+										</tr>
+										<tr>
+											<th scope="row"><a href="#">4</a></th>
+											<td>156660</td>
+											<td>Spte</td>
+											<td><a href="#" class="text-primary">Kazungu Karisa</a></td>
+											<td>Canine</td>
+											<td>Handler</td>
+											<td><span class="badge bg-warning">Pending</span></td>
+										</tr>
+										<tr>
+											<th scope="row"><a href="#">5</a></th>
+											<td>163650</td>
+											<td>Pte</td>
+											<td><a href="#" class="text-primary">John Kamu</a></td>
+											<td>Canine</td>
+											<td>Handler</td>
+											<td><span class="badge bg-success">Approved</span></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- End Recent Sales -->
+
+					<!-- Recent Added -->
+					<div class="col-12">
+						<div class="card recent-sales overflow-auto">
+							<h5 class="card-title">Vaccine Analysis <span></span></h5>
+
+							<canvas id="horizontalBar" style="max-height: 400px; left: 90px"></canvas>
+							<script>
+								document.addEventListener("DOMContentLoaded", () => {
+								  new Chart(document.querySelector('#horizontalBar'), {
+								    type: 'horizontalBar',
+								    data: {
+								      labels: [{% for vaccine_list in vaccine_list %} '{{vaccine_list}}', {% endfor %} ],
+								      datasets: [{
+								        label: 'Bar Chart',
+								        data: [ {% for num_vac in num_vac %} '{{num_vac}}',{% endfor %}],
+								        backgroundColor: [
+								          'rgba(255, 99, 132, 0.8)',
+								          'rgba(255, 159, 64, 0.8)',
+								          'rgba(255, 205, 86, 0.8)',
+								          'rgba(75, 192, 192, 0.8)',
+								          'rgba(54, 162, 235, 0.8)',
+								          'rgba(153, 102, 255, 0.8)',
+								          'rgba(201, 203, 207, 0.8)'
+								        ],
+								        borderColor: [
+								          'rgb(255, 99, 132)',
+								          'rgb(255, 159, 64)',
+								          'rgb(255, 205, 86)',
+								          'rgb(75, 192, 192)',
+								          'rgb(54, 162, 235)',
+								          'rgb(153, 102, 255)',
+								          'rgb(201, 203, 207)'
+								        ],
+								        borderWidth: 0
+								      }]
+								    },
+								    options: {
+								      scales: {
+								        y: {
+								          beginAtZero: true
+								        }
+								      }
+								    }
+								  });
+								});
+							</script>
+
+							<!-- {% include 'hod_templates/map.html' %} -->
+						</div>
+						<section class="">
+							<div class="container px-4 px-lg-5 text-center">
+								<h2 class="mb-4">Click here to view Kennel Location</h2>
+								<a class="btn btn-light btn-xl" target="_blank" href="{% url 'map' %}">Map</a>
+							</div>
+						</section>
+					</div>
+					<!-- End Recent Sales -->
+				</div>
+			</div>
+			<!-- End Left side columns -->
+
+			<!-- Right side columns -->
+			<div class="col-lg-4">
+				<!-- Recent Activity -->
+				<div class="card">
+					<div class="filter">
+						<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+							<li class="dropdown-header text-start">
+								<h6>Filter</h6>
+							</li>
+
+							<li><a class="dropdown-item" href="#">Today</a></li>
+							<li><a class="dropdown-item" href="#">This Month</a></li>
+							<li><a class="dropdown-item" href="#">This Year</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body">
+						<h5 class="card-title">Daily  Analysis <span>| Today</span></h5>
+
+						<div class="position-relative mt-4">
+							<div class="panel panel-default">
+								<canvas id="verticalBarChart" style="max-height: 400px; left: 90px"></canvas>
+								<script>
+									document.addEventListener("DOMContentLoaded", () => {
+									  new Chart(document.querySelector('#verticalBarChart'), {
+
+									    type: 'bar',
+									    data: {
+									      labels: [{% for train_list in train_list %} '{{train_list}}', {% endfor %} ],
+									      datasets: [{
+									        label: 'Bar Chart',
+									        data: [ {% for train_num in train_num %} '{{train_num}}',{% endfor %}],
+									        backgroundColor: [
+									          'rgba(255, 99, 132, 0.2)',
+									          'rgba(255, 159, 64, 0.2)',
+									          'rgba(255, 205, 86, 0.2)',
+									          'rgba(75, 192, 192, 0.2)',
+									          'rgba(54, 162, 235, 0.2)',
+									          'rgba(153, 102, 255, 0.2)',
+									          'rgba(201, 203, 207, 0.2)'
+									        ],
+									        borderColor: [
+									          'rgb(255, 99, 132)',
+									          'rgb(255, 159, 64)',
+									          'rgb(255, 205, 86)',
+									          'rgb(75, 192, 192)',
+									          'rgb(54, 162, 235)',
+									          'rgb(153, 102, 255)',
+									          'rgb(201, 203, 207)'
+									        ],
+									        borderWidth: 0
+									      }]
+									    },
+									    options: {
+									      scales: {
+									        y: {
+									          beginAtZero: false
+									        }
+									      }
+									    }
+									  });
+									});
+								</script>
+								<div class="panel-footer">
+									<p class="text-muted">
+										<em class="fa fa-dog fa-fw"></em>
+										<span>Training </span>
+										<span class="text-dark">Analysis</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Recent Activity -->
+
+				<!-- Budget Report -->
+				<div class="card">
+					<div class="filter">
+						<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+							<li class="dropdown-header text-start">
+								<h6>Filter</h6>
+							</li>
+
+							<li><a class="dropdown-item" href="#">Today</a></li>
+							<li><a class="dropdown-item" href="#">This Month</a></li>
+							<li><a class="dropdown-item" href="#">This Year</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body pb-0">
+						<h5 class="card-title">Breed Report <span>| This Month</span></h5>
+
+						<div id="budgetChart" style="min-height: 400px" class="echart"></div>
+
+						<script>
+							document.addEventListener('DOMContentLoaded', () => {
+								var budgetChart = echarts.init(document.querySelector('#budgetChart')).setOption({
+									legend: {
+										data: ['Same Breeds', 'Cross Breeds'],
+									},
+									radar: {
+										// shape: 'circle',
+										indicator: [
+											{
+												name: 'German Shepherd ',
+												max: 6500,
+											},
+											{
+												name: 'Poodle',
+												max: 16000,
+											},
+											{
+												name: 'Bulldog',
+												max: 30000,
+											},
+											{
+												name: 'Dachshund',
+												max: 38000,
+											},
+											{
+												name: 'Yorkshire Terrier',
+												max: 52000,
+											},
+											{
+												name: 'Rottweiler',
+												max: 25000,
+											},
+										],
+									},
+									series: [
+										{
+											name: 'Budget vs spending',
+											type: 'radar',
+											data: [
+												{
+													value: [4200, 3000, 20000, 35000, 50000, 18000],
+													name: 'Same Breeds',
+												},
+												{
+													value: [5000, 14000, 28000, 26000, 42000, 21000],
+													name: 'Cross Breeds',
+												},
+											],
+										},
+									],
+								});
+							});
+						</script>
+					</div>
+				</div>
+				<!-- End Budget Report -->
+
+				<!-- Website Traffic -->
+				<div class="card">
+					<div class="filter">
+						<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+							<li class="dropdown-header text-start">
+								<h6>Filter</h6>
+							</li>
+
+							<li><a class="dropdown-item" href="#">Today</a></li>
+							<li><a class="dropdown-item" href="#">This Month</a></li>
+							<li><a class="dropdown-item" href="#">This Year</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body pb-0">
+						<h5 class="card-title">Dog Specialities<span></span></h5>
+
+						<div id="trafficChart" style="min-height: 400px" class="echart"></div>
+
+						<script>
+							document.addEventListener('DOMContentLoaded', () => {
+								echarts.init(document.querySelector('#trafficChart')).setOption({
+									tooltip: {
+										trigger: 'item',
+									},
+									legend: {
+										top: '5%',
+										left: 'center',
+									},
+									series: [
+										{
+											name: 'Access From',
+											type: 'pie',
+											radius: ['40%', '70%'],
+											avoidLabelOverlap: false,
+											label: {
+												show: false,
+												position: 'center',
+											},
+											emphasis: {
+												label: {
+													show: true,
+													fontSize: '18',
+													fontWeight: 'bold',
+												},
+											},
+											labelLine: {
+												show: false,
+											},
+											data: [
+												{
+													value: 1048,
+													name: 'Explosive',
+												},
+												{
+													value: 735,
+													name: 'Protection Dogs',
+												},
+												{
+													value: 580,
+													name: 'Infantry Patrol Dogs',
+												},
+												{
+													value: 484,
+													name: 'Explosive Search Dogs',
+												},
+												{
+													value: 300,
+													name: 'Human Detection Dogs (U/T)',
+												},
+											],
+										},
+									],
+								});
+							});
+						</script>
+					</div>
+				</div>
+				<!-- End Website Traffic -->
+
+				<!-- News & Updates Traffic -->
+				<div class="card">
+					<div class="filter">
+						<a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+						<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+							<li class="dropdown-header text-start">
+								<h6>Filter</h6>
+							</li>
+
+							<li><a class="dropdown-item" href="#">Today</a></li>
+							<li><a class="dropdown-item" href="#">This Month</a></li>
+							<li><a class="dropdown-item" href="#">This Year</a></li>
+						</ul>
+					</div>
+
+					<div class="card-body pb-0">
+						<h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
+
+						<div class="news">
+							<div class="post-item clearfix">
+								<img src="{{handler.profile_pic.url}}" alt="" />
+								<h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
+							</div>
+
+							<div class="post-item clearfix">
+								<img src="{{handler.profile_pic.url}}" alt="" />
+								<h4><a href="#">Quidem autem et impedit</a></h4>
+								<p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
+							</div>
+
+							<div class="post-item clearfix">
+								<img src="{{handler.profile_pic.url}}" alt="" />
+								<h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
+								<p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
+							</div>
+
+							<div class="post-item clearfix">
+								<img src="{{handler.profile_pic.url}}" alt="" />
+								<h4><a href="#">Laborum corporis quo dara net para</a></h4>
+								<p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
+							</div>
+
+							<div class="post-item clearfix">
+								<img src="{{handler.profile_pic.url}}" alt="" />
+								<h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
+								<p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
+							</div>
+						</div>
+						<!-- End sidebar recent posts-->
+					</div>
+				</div>
+				<!-- End News & Updates -->
+			</div>
+			<!-- End Right side columns -->
+		</div>
+	</section>
+</main>
+
+<!-- End #main -->
+
+<script>
+	var xValues = [{% for weight_list in weight_list %} '{{weight_list}}', {% endfor %}];
+
+	new Chart("myChart", {
+	  type: "line",
+	  data: {
+	    labels: xValues,
+	    datasets: [{
+	      data: [],
+	      borderColor: "red",
+	      fill: false
+	    }, {
+	      data: [],
+	      borderColor: "green",
+	      fill: false
+	    }, {
+	      data: [],
+	      borderColor: "blue",
+	      fill: false
+	    }]
+	  },
+	  options: {
+	    legend: {display: false}
+	  }
+	});
+</script>
+
+{% endblock main_content %}

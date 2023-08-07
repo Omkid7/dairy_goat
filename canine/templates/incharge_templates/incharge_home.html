@@ -1,0 +1,960 @@
+{% extends 'hod_templates/base_template.html'%} 
+{% load leaflet_tags %}
+{% leaflet_map "detailmap" callback="window.map_init" %}
+{% load static %} 
+{% block page_title %}
+<h4>Dashboard</h4> 
+{% endblock page_title %} 
+{% block main_content %}
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+<style>
+ .leaflet-container { height: 150%; }
+     
+      
+</style>
+<script>
+    var dataurl = '{% url "data" %}';
+  
+    window.addEventListener("map:init", function (event) {
+      var map = event.detail.map;
+      // Download GeoJSON data with Ajax
+      fetch(dataurl)
+        .then(function(resp) {
+          return resp.json();
+        })
+        .then(function(data) {
+          L.geoJson(data, {
+            onEachFeature: function onEachFeature(feature, layer) {
+              var props = feature.properties;
+              var content = `<img width="300" src="${props.picture_url}"/><h3>${props.title}</h3><p>${props.description}</p>`;
+              layer.bindPopup(content);
+          }}).addTo(map);
+        });
+    });
+  </script>
+{% leaflet_js %}
+{% leaflet_css %}
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <!-- <div class="card-body p-0 d-flex flex-fill illustration oyah">
+									<div class="row g-0 w-100">
+										<div class="col-md-6  col-sm-6">
+											<div class="illustration-text p-3 m-1">
+												<h4 class="illustration-text">Welcome Back, {{user.first_name}}!</h4>
+												<p class="mb-0">Supervisor Dashboard</p>
+											</div>
+										</div>
+										<div class="col-lg-5 col-md-6  col-sm-6  col-xs-2 align-self-end text-end ">
+											<img src="https://appstack.bootlab.io/img/illustrations/customer-support.png" alt="Customer Support" class="img-fluid illustration-img" height="30">
+										</div>
+									</div>
+								</div> -->
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 dash-icon">
+            <div class="row">
+
+                <div class="col-lg-2 col-md-6   col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{handlers_total}}</h3>
+
+                            <p>Total Dog Handlers</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas fa-dog-leashed"></i>
+                        </div>
+                        <a href="{% url 'all_handlers' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6   col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{prescip}}</h3>
+
+                            <p>Total Vaccinated Dogs</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas fa-dog-leashed"></i>
+                        </div>
+                        <a href="{% url 'all_handlers' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <!-- ./col -->
+                <!-- <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{expired_total}}</h3>
+
+                            <p>Dogs That have Retired</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-dog"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi3">
+                        <div class="inner">
+                            <h3>{{out_of_dog}}</h3>
+
+                            <p>dogs Out of dog</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi4">
+                        <div class="inner">
+                            <h3>{{total_dogs}}</h3>
+
+                            <p>Total MWD</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-dog"></i>
+                        </div>
+                        <a href="{% url 'manage_dog' %}" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- <div class="col-lg-2 col-md-6   col-sm-6">
+                    <div class="small-box mojahi4">
+                        <div class="inner">
+                            <h3>{{all_pharmacists}}</h3>
+
+                            <p>Dog Trainers</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas  fa-dog"></i>
+                        </div>
+                        <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-2 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi3">
+                        <div class="inner">
+                            <h3>{{all_clerks}}</h3>
+
+                            <p> Clerks</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{all_doctors}}</h3>
+
+                            <p>Veterinary</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-briefcase-medical "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+
+                <!-- <div class="col-lg-2 col-md-6  col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{for_today}}</h3>
+
+                            <p>New Trainers</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-wheelchair "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div> -->
+
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card info-card sales-card">
+                        
+                        <h5 class="card-title">Breed Analysis<span></span></h5>
+            
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="pieChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#pieChart'), {
+                          type: 'pie',
+                          data: {
+                            labels: [{% for breed_list in breed_list %} '{{breed_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Pie Chart',
+                              data: [ {% for num_list in num_list %} '{{num_list}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+            
+                      </div>
+                </div>
+                
+                <div class="col-lg-6 ">
+                        <div class="card info-card sales-card">
+              
+                        <h5 class="card-title">Classification Analysis <span></span></h5>
+              
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="doughnutChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#doughnutChart'), {
+                          type: 'doughnut',
+                          data: {
+                            labels: [{% for class_list in class_list %} '{{class_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Bar Chart',
+                              data: [ {% for class_num_list in class_num_list %} '{{class_num_list}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+              
+                      </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card info-card sales-card">
+                
+                        <h5 class="card-title">Training Analysis <span></span></h5>
+                
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="verticalBarChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#verticalBarChart'), {
+                          
+                          type: 'bar',
+                          data: {
+                            labels: [{% for train_list in train_list %} '{{train_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Bar Chart',
+                              data: [ {% for train_num in train_num %} '{{train_num}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: false
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+                
+                      </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="card info-card sales-card">
+        
+                  <h5 class="card-title">Vaccine Analysis <span></span></h5>
+        
+                  <!-- Line Chart -->
+              <!-- Bar Chart -->
+              <canvas id="horizontalBar" style="max-height: 400px; left: 90px;"></canvas>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#horizontalBar'), {
+                    type: 'horizontalBar',
+                    data: {
+                      labels: [{% for vaccine_list in vaccine_list %} '{{vaccine_list}}', {% endfor %} ],
+                      datasets: [{
+                        label: 'Bar Chart',
+                        data: [ {% for num_vac in num_vac %} '{{num_vac}}',{% endfor %}],
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(255, 159, 64, 0.8)',
+                          'rgba(255, 205, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(153, 102, 255, 0.8)',
+                          'rgba(201, 203, 207, 0.8)'
+                        ],
+                        borderColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(255, 159, 64)',
+                          'rgb{% extends 'hod_templates/base_template.html'%} 
+{% load leaflet_tags %}
+{% leaflet_map "detailmap" callback="window.map_init" %}
+{% load static %} 
+{% block page_title %}
+<h4>Dashboard</h4> 
+{% endblock page_title %} 
+{% block main_content %}
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.snow.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/quill/quill.bubble.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/simple-datatables/style.css' %}" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/map.css' %}">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+
+<style>
+ .leaflet-container { height: 150%; }
+     
+      
+</style>
+<script>
+    var dataurl = '{% url "data" %}';
+  
+    window.addEventListener("map:init", function (event) {
+      var map = event.detail.map;
+      // Download GeoJSON data with Ajax
+      fetch(dataurl)
+        .then(function(resp) {
+          return resp.json();
+        })
+        .then(function(data) {
+          L.geoJson(data, {
+            onEachFeature: function onEachFeature(feature, layer) {
+              var props = feature.properties;
+              var content = `<img width="300" src="${props.picture_url}"/><h3>${props.title}</h3><p>${props.description}</p>`;
+              layer.bindPopup(content);
+          }}).addTo(map);
+        });
+    });
+  </script>
+{% leaflet_js %}
+{% leaflet_css %}
+
+<section class="content">
+    <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+              <!-- <div class="card-body p-0 d-flex flex-fill illustration oyah">
+									<div class="row g-0 w-100">
+										<div class="col-md-6  col-sm-6">
+											<div class="illustration-text p-3 m-1">
+												<h4 class="illustration-text">Welcome Back, {{user.first_name}}!</h4>
+												<p class="mb-0">Supervisor Dashboard</p>
+											</div>
+										</div>
+										<div class="col-lg-5 col-md-6  col-sm-6  col-xs-2 align-self-end text-end ">
+											<img src="https://appstack.bootlab.io/img/illustrations/customer-support.png" alt="Customer Support" class="img-fluid illustration-img" height="30">
+										</div>
+									</div>
+								</div> -->
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 dash-icon">
+            <div class="row">
+
+                <div class="col-lg-2 col-md-6   col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{handlers_total}}</h3>
+
+                            <p>Total Dog Handlers</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas fa-dog-leashed"></i>
+                        </div>
+                        <a href="{% url 'all_handler' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6   col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{prescip}}</h3>
+
+                            <p>Total Vaccinated Dogs</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas fa-dog-leashed"></i>
+                        </div>
+                        <a href="{% url 'all_handler' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+
+                <!-- ./col -->
+                <!-- <div class="col-lg-3 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{expired_total}}</h3>
+
+                            <p>Dogs That have Retired</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-dog"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi3">
+                        <div class="inner">
+                            <h3>{{out_of_dog}}</h3>
+
+                            <p>dogs Out of dog</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-capsules"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-3 col-md-6  col-sm-6">
+                    <div class="small-box mojahi4">
+                        <div class="inner">
+                            <h3>{{total_dogs}}</h3>
+
+                            <p>Total MWD</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-dog"></i>
+                        </div>
+                        <a href="{% url 'manage_dog' %}" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <!-- <div class="col-lg-2 col-md-6   col-sm-6">
+                    <div class="small-box mojahi4">
+                        <div class="inner">
+                            <h3>{{all_pharmacists}}</h3>
+
+                            <p>Dog Trainers</p>
+                        </div>
+                        <div class="icon uzer">
+                            <i class="fas  fa-dog"></i>
+                        </div>
+                        <a href="" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div> -->
+
+                <div class="col-lg-2 col-sm-6  col-sm-6">
+                    <div class="small-box mojahi3">
+                        <div class="inner">
+                            <h3>{{all_clerks}}</h3>
+
+                            <p> Clerks</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6  col-sm-6">
+                    <div class="small-box mojahi2">
+                        <div class="inner">
+                            <h3>{{all_doctors}}</h3>
+
+                            <p>Veterinary</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-briefcase-medical "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                
+
+                <!-- <div class="col-lg-2 col-md-6  col-sm-6">
+                    <div class="small-box mojahi">
+                        <div class="inner">
+                            <h3>{{for_today}}</h3>
+
+                            <p>New Trainers</p>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-wheelchair "></i>
+                        </div>
+                        <a href="" class="small-box-footer text-white">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+            </div> -->
+
+            
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card info-card sales-card">
+                        
+                        <h5 class="card-title">Breed Analysis<span></span></h5>
+            
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="pieChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#pieChart'), {
+                          type: 'pie',
+                          data: {
+                            labels: [{% for breed_list in breed_list %} '{{breed_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Pie Chart',
+                              data: [ {% for num_list in num_list %} '{{num_list}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+            
+                      </div>
+                </div>
+                
+                <div class="col-lg-6 ">
+                        <div class="card info-card sales-card">
+              
+                        <h5 class="card-title">Classification Analysis <span></span></h5>
+              
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="doughnutChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#doughnutChart'), {
+                          type: 'doughnut',
+                          data: {
+                            labels: [{% for class_list in class_list %} '{{class_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Bar Chart',
+                              data: [ {% for class_num_list in class_num_list %} '{{class_num_list}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+              
+                      </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card info-card sales-card">
+                
+                        <h5 class="card-title">Training Analysis <span></span></h5>
+                
+                        <!-- Line Chart -->
+                    <!-- Bar Chart -->
+                    <canvas id="verticalBarChart" style="max-height: 400px; left: 90px;"></canvas>
+                    <script>
+                      document.addEventListener("DOMContentLoaded", () => {
+                        new Chart(document.querySelector('#verticalBarChart'), {
+                          
+                          type: 'bar',
+                          data: {
+                            labels: [{% for train_list in train_list %} '{{train_list}}', {% endfor %} ],
+                            datasets: [{
+                              label: 'Bar Chart',
+                              data: [ {% for train_num in train_num %} '{{train_num}}',{% endfor %}],
+                              backgroundColor: [
+                                'rgba(255, 99, 132, 0.8)',
+                                'rgba(255, 159, 64, 0.8)',
+                                'rgba(255, 205, 86, 0.8)',
+                                'rgba(75, 192, 192, 0.8)',
+                                'rgba(54, 162, 235, 0.8)',
+                                'rgba(153, 102, 255, 0.8)',
+                                'rgba(201, 203, 207, 0.8)'
+                              ],
+                              borderColor: [
+                                'rgb(255, 99, 132)',
+                                'rgb(255, 159, 64)',
+                                'rgb(255, 205, 86)',
+                                'rgb(75, 192, 192)',
+                                'rgb(54, 162, 235)',
+                                'rgb(153, 102, 255)',
+                                'rgb(201, 203, 207)'
+                              ],
+                              borderWidth: 0
+                            }]
+                          },
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: false
+                              }
+                            }
+                          }
+                        });
+                      });
+                    </script>
+                    <!-- End Bar CHart -->
+                        <!-- End Line Chart -->
+                
+                      </div>
+                </div>
+
+                <div class="col-lg-6 ">
+                  <div class="card info-card sales-card">
+        
+                  <h5 class="card-title">Vaccine Analysis <span></span></h5>
+        
+                  <!-- Line Chart -->
+              <!-- Bar Chart -->
+              <canvas id="horizontalBar" style="max-height: 400px; left: 90px;"></canvas>
+              <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#horizontalBar'), {
+                    type: 'horizontalBar',
+                    data: {
+                      labels: [{% for vaccine_list in vaccine_list %} '{{vaccine_list}}', {% endfor %} ],
+                      datasets: [{
+                        label: 'Bar Chart',
+                        data: [ {% for num_vac in num_vac %} '{{num_vac}}',{% endfor %}],
+                        backgroundColor: [
+                          'rgba(255, 99, 132, 0.8)',
+                          'rgba(255, 159, 64, 0.8)',
+                          'rgba(255, 205, 86, 0.8)',
+                          'rgba(75, 192, 192, 0.8)',
+                          'rgba(54, 162, 235, 0.8)',
+                          'rgba(153, 102, 255, 0.8)',
+                          'rgba(201, 203, 207, 0.8)'
+                        ],
+                        borderColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(255, 159, 64)',
+                          'rgb(255, 205, 86)',
+                          'rgb(75, 192, 192)',
+                          'rgb(54, 162, 235)',
+                          'rgb(153, 102, 255)',
+                          'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 0
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                });
+              </script>
+              <!-- End Bar CHart -->
+                  <!-- End Line Chart -->
+        
+                </div>
+          </div>
+
+            </div>
+
+
+            <div class="row">
+
+      
+                <div class="col-lg-12">
+                    <h3>Kennel Location</h3>
+                    {% leaflet_map "main" callback="window.map_init_basic" %}
+                </div>
+    
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+<script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+<script>
+  var xValues = [{% for weight_list in weight_list %} '{{weight_list}}', {% endfor %}];
+  
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{ 
+        data: [],
+        borderColor: "red",
+        fill: false
+      }, { 
+        data: [],
+        borderColor: "green",
+        fill: false
+      }, { 
+        data: [],
+        borderColor: "blue",
+        fill: false
+      }]
+    },
+    options: {
+      legend: {display: false}
+    }
+  });
+  </script>
+
+{% endblock main_content %}gb(153, 102, 255)',
+                          'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 0
+                      }]
+                    },
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true
+                        }
+                      }
+                    }
+                  });
+                });
+              </script>
+              <!-- End Bar CHart -->
+                  <!-- End Line Chart -->
+        
+                </div>
+          </div>
+
+            </div>
+
+
+            <div class="row">
+
+      
+                <div class="col-lg-12">
+                    <h3>Kennel Location</h3>
+                    {% leaflet_map "main" callback="window.map_init_basic" %}
+                </div>
+    
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+<script src="{% static 'assets/vendor/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/chart.js/chart.min.js' %}"></script>
+<script src="{% static 'assets/vendor/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'assets/vendor/quill/quill.min.js' %}"></script>
+<script src="{% static 'assets/vendor/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'assets/vendor/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+
+<script>
+  var xValues = [{% for weight_list in weight_list %} '{{weight_list}}', {% endfor %}];
+  
+  new Chart("myChart", {
+    type: "line",
+    data: {
+      labels: xValues,
+      datasets: [{ 
+        data: [],
+        borderColor: "red",
+        fill: false
+      }, { 
+        data: [],
+        borderColor: "green",
+        fill: false
+      }, { 
+        data: [],
+        borderColor: "blue",
+        fill: false
+      }]
+    },
+    options: {
+      legend: {display: false}
+    }
+  });
+  </script>
+
+{% endblock main_content %}

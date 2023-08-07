@@ -1,0 +1,94 @@
+{% extends 'clerk_templates/base_template.html'%} {% block page_title %}
+<!-- <h5>All handlers</h5> -->
+
+{% endblock page_title %} {% block main_content %}
+<section class="main" id="main">
+    {% if messages %}
+    <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %} {% if message.tags == "error" %}
+            <div class="col-sm-12">
+                <div class="alert fade alert-simple alert-danger alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show mt-1 " role="alert" data-brk-library="component__alert">
+                    <button type="button" class="close font__size-18" data-dismiss="alert">
+                                                <span aria-hidden="true">
+                                                    <i class="fa fa-times danger "></i>
+                                                </span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                    <i class="start-icon far fa-times-circle faa-pulse animated"></i>
+                    <strong class="font__weight-semibold">Oh snap!</strong> {{message}}
+                </div>
+            </div>
+            {% elif message.tags == "success" %}
+            <div class="alert fade alert-simple alert-success alert-dismissible text-left font__family-montserrat font__size-16 font__weight-light brk-library-rendered rendered show mt-1">
+                <button type="button" class="close font__size-18" data-dismiss="alert">
+                                              <span aria-hidden="true">
+                              <i class="fa fa-times greencross"></i>
+                              </a></span>
+                                              <span class="sr-only">Close</span> 
+                                          </button>
+                <i class="start-icon far fa-check-circle faa-tada animated"></i>
+                <strong class="font__weight-semibold">Well done!</strong> {{message}}
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card card-primry sc">
+                <div class="card-header">
+                    Handlers Details
+                </div>
+                <table class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Pic</th>
+                            <th>Svc No</th>
+                            <th>Rank</th>
+                            <th>Surname</ankth>
+                            <th>Email</th>
+
+                            <th>Mobile</th>
+
+                            <th>Unit</th>
+                            <th class="text-center">Action</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for handler in handler %}
+                        <tr class="hov">
+                            <td>{{forloop.counter}}</td>
+                            <td> <img src="{{handler.profile_pic.url}}" class="" width="35" height="35" alt=""></td>
+
+                            <td>{{handler.reg_no}}</td>
+                            <td>{{handler.admin.first_name}}</td>
+                            <td>{{handler.admin.username}}</td>
+
+                            <td>{{handler.admin.email}}</td>
+                            <td>{{handler.phone_number}}</td>
+
+                            <td>{{handler.address}}</td>
+                            <td><a href="{% url 'edit_handler' handler.admin.id %}" class="btn btn-sm btn-success">Edit</a>
+                                <a href="{% url 'delete_handler' handler.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="{% url 'handler_record' handler.id %}" class="btn btn-sm btn-warning">View</a></td>
+
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

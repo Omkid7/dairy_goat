@@ -1,0 +1,92 @@
+{% extends 'hod_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<!-- <h5>All handlers</h5> -->
+
+{% endblock page_title %}
+{% block main_content %}
+<section class="main" id="main">
+    
+        {% if messages %}
+        <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% elif message.tags == "success" %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+        {% endif %}
+    <div class="row">
+        
+        <div class="col-md-12 px-3">
+                
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    <span>Handlers Records</span>
+                   <div class="card-tools d-flex">
+                       
+              
+                <a class="btn btn-sm btn-info mr-2" href="{% url 'handler_form' %}" role="button">+ Add Staff</a> 
+
+            </div>
+
+                </div>
+                <table  class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+                            <tr>
+                                    <th>No</th>
+                                    <th>Profile</th>
+                                    <th>Surname</th>
+                                    <th>Service</th>
+                                    <th>Email</th>
+            
+                                    <th>Mobile</th>
+            
+                                     <th>Last Login</th>
+                                     <th class="text-center">Action</th>
+                                    
+        
+                            </tr>
+                    </thead>
+                    <tbody>
+                            {% for handler in handler %}
+                            <tr class="hov"> <td>{{handler.admin.id}}</td>
+                                <td> <img src="{{handler.profile_pic.url}}" class="" width="35" height="35" alt=""></td>
+        
+                                <td>{{handler.admin}}</td>
+                                <td>{{handler.admin.last_name}}</td>
+        
+                                <td>{{handler.admin.email}}</td>
+                                <td>{{handler.phone_number}}</td>
+        
+                                <td>{{handler.admin.last_login}}</td>
+
+                                <td><a href="{% url 'edit_handler' handler.admin.id %}" class="btn btn-sm btn-success">Edit</a>                     
+                                    <a href="{% url 'delete_handler' handler.id %}" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="{% url 'handler_record' handler.id %}" class="btn btn-sm btn-warning">View</a></td> 
+            
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

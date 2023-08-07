@@ -1,0 +1,271 @@
+{% load static %}
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url  'admin_dashboard' %}">
+          <i class="nav-icon fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="nav-icon fas fa-weight"></i><span>Body Weight</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_body_weight' %}">
+              <i class="fas fa-user-plus"></i><span >Add Weight</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_weight' %}">
+              <i class="fas fa-weight-hanging"></i><span>Manage Weight</span>
+            </a>
+        </ul>
+      </li><!-- End Handlers Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="nav-icon fas fa-tablets"></i><span>Vaccines</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_vaccination_category' %}">
+              <i class="fas fa-pills"></i><span>Add Vaccination Category</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'add_vaccination_dog' %}">
+              <i class="fas fa-capsules"></i><span>Add Vaccine</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_vaccination_dog' %}">
+              <i class="fas fa-layer-group"></i><span>Manage Vaccine</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Veterinary Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="nav-icon fas fa-tablets"></i><span>Deworming</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          
+          <li>
+            <a href="{% url 'add_type_of_deworming' %}">
+              <i class="fas fa-capsules"></i><span>Add Deworming Category</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="{% url 'manage_deworm' %}">
+              <i class="fas fa-layer-group"></i><span>Manage Deworming</span>
+            </a>
+          </li>
+
+        </ul>
+        
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="nav-icon fas  fa-briefcase-medical"></i><span>Vaccinations</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'manage_dogs' %}" class="nav-link">
+                    <i class="fas fa-pills"></i>
+                    <p class="pl-2">Prescribe vaccinations</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+                <a href="{% url 'manage_precrip_doctor' %}" class="nav-link">
+                    <i class="fas fa-layer-group"></i>
+                    <p class="pl-2">Manage Prescription</p>
+                </a>
+            </li>
+            <!-- <li class="nav-item pl-2">
+                <a href="{% url 'add_owner'  %}" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <p class="pl-2">Add Owner</p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'manage_dog'  %}" class="nav-link">
+                    <i class="fas fa-th"></i>
+                    <p class="pl-2">Manage Dogs</p>
+                </a>
+            </li> -->
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-tractor mr-2"></i><span>Training</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_team'  %}"  class="nav-link">
+                    <i class="fas fa-people-arrows mr-2"></i>
+                    <p>
+                        Add Team
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_unit'  %}"  class="nav-link">
+                    <i class="fas fa-unity mr-2"></i>
+                    <p>
+                        Add Unit
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'training'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Training
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+
+            <a href="{% url 'add_course'  %}"  class="nav-link">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                <p>
+                    Add Course
+                    <i class="right fas "></i>
+                </p>
+            </a>
+           </li>
+           <li class="nav-item pl-2">
+
+            <a href="{% url 'add_training_session'  %}"  class="nav-link">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                <p>
+                    Add Training Session
+                    <i class="right fas "></i>
+                </p>
+            </a>
+           </li>
+        </ul>
+      </li> -->
+      <!-- End Icons Nav -->
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#assessment-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-hospital-user mr-2"></i><span>Assessment</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="assessment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_skilltest'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Skill Test
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_assessment'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Assessment
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+          
+            <li class="nav-item pl-2">
+
+            <a href="{% url 'add_certificate'  %}"  class="nav-link">
+                <i class="fas fa-certificate mr-2"></i>
+                <p>
+                    Add Certificate    
+                <i class="right fas "></i>
+                </p>
+            </a>
+           </li>
+        </ul>
+      </li> -->
+      <!-- End assesment Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#casting-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-hospital-user mr-2"></i><span>Disposal and casting</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="casting-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_casting'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                       Casting
+                        <i class="right fas "></i>
+                    </p>
+                </a>
+            </li>
+          <li> -->
+            <!-- <a href="#">
+              <i class="fas fa-th"></i><span>...</span>
+            </a> -->
+        <!-- </ul>
+      </li> -->
+      <!-- End disposing and casting Nav -->
+
+      <!-- <li class="nav-heading">Pages</li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li> -->
+      <!-- End Contact Page Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li> -->
+      <!-- End Register Page Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li> -->
+      <!-- End Login Page Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-dash-circle"></i>
+          <span>Error 404</span>
+        </a>
+      </li> -->
+      <!-- End Error 404 Page Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-file-earmark"></i>
+          <span>Blank</span>
+        </a>
+      </li>End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

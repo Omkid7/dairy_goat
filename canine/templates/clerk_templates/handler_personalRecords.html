@@ -1,0 +1,54 @@
+{% extends 'clerk_templates/base_template.html'%} {% block main_content %}
+<section class="main" id="main">
+    <div class="row  m-2">
+        <div class="col-md-6">
+            <div class="card card-primary ">
+                <div class="card-header">
+                    <h5 class=" text-center text-white">
+                       Handler's Details</h5>
+                </div>
+
+                <div class="card-body doc">
+                    <h5> Service Number: <span> {{handler.reg_no}}</span> </h5>
+                    <hr>
+                    <h5> Rank: <span> {{handler.admin.first_name}}</span> </h5>
+                    <hr>
+                    <h5> Surname: <span> {{handler.admin.username}}</span> </h5>
+                    <hr>
+                    <h5> Gender: <span>{{handler.gender}}</span> </h5>
+                    <hr>
+                    <h5> Registration Date: <span>{{handler.dob}}</span> </h5>
+                    <hr>
+                    <h5> Unit: <span>{{handler.address}}</span> </h5>
+                    <hr>
+                    <h5> Mobile: <span>{{handler.phone_number}}</span> </h5>
+                    <hr>
+                    <h5> Email: <span>{{handler.admin.email}}</span> </h5>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="col-md-4">
+            <div class="card card-header">
+                <h5 class=" text-center text-white">
+                    Handler's Profile image</h5>
+
+            </div>
+            <div class="profile-userpic">
+                <img src="{{request.user.handler.profile_pic.url}}" class="img-responsive" alt="">
+            </div>
+
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    {{request.user.first_name}} {{request.user.last_name}}
+                </div>
+              
+            </div>
+        </div> -->
+ 
+    </div>
+
+</section>
+
+{% endblock %}

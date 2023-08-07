@@ -1,0 +1,67 @@
+{% extends 'pharmacist_templates/base_template.html'%}
+{% load static %}
+{% block page_title %}
+<h4>Dashboard</h4> {% endblock page_title %}
+{% block main_content %}
+<div class="content">
+   <div class="container">
+       <div class="row">
+
+           <div class="col-md-4 mt-3">
+               <div class="card " style="  background: #e0eafc !important;
+                 ">
+                   <div class="pid-box-1 d-flex justify-content-center" data-pid-imprintid="8011">
+   
+                       <img src="{{dogs.dog_pic.url}}" data-orig-height="216" width="343" height="270" alt=" ">
+                   </div>
+
+                   <div class="pid-details pt-4">
+                       <ul class="ddc-list-unstyled ">
+                           <li><b>Breed:</b> <a href="#" class="imprintdoglink"> {{dogs.category}}</a></li>
+                           <li><b>MWT:</b> <a href="#" class="imprintdoglink"> {{dogs.dog_name}}</a></li>
+                           <li><b>Strength:</b> {{dogs.dog_strength}}</li>
+                           <li><b>Classification:</b> <a href="#"> {{dogs.dog_imprint }}</a></li>
+                           <li><b>Color:</b> {{dogs.dog_color}}</li>
+                           <li><b>Certification:</b> {{dogs.dog_shape}}</li>
+
+                       </ul>
+                   </div>
+
+               </div>
+           </div>
+
+           <div class="col-md-4 mt-3">
+               <div class="card " style="  background: #e0eafc !important;
+               ">
+                <div class="pid-box-1 d-flex justify-content-center" data-pid-imprintid="8011">
+                   <ul>
+                       <li>
+                           <b>Description</b>
+
+                       </li>
+                       <li>
+                           {{dogs.dog_description}}
+
+                       </li>
+                       <li><b> Country of origin:</b>{{dogs.manufacture}} </li>
+                       <li><b>Chip Number:</b> {{dogs.quantity}}</li>
+
+                   </ul>
+                 </div>
+
+               </div>
+
+
+          </div>
+
+
+
+       </div>
+
+ 
+
+   </div>
+</div>
+     </div>
+
+{% endblock %}

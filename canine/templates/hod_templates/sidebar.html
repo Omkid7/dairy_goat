@@ -1,0 +1,261 @@
+{% load static %}
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url  'admin_dashboard' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-hospital-user mr-2"></i><span>Shepherd</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'handler_form' %}">
+              <i class="fas fa-user-plus"></i><span >Add Handler</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'all_handler'  %}">
+              <i class="fas fa-th"></i><span>Manage Handlers</span>
+            </a>
+        </ul>
+      </li><!-- End Handlers Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="	bi bi-person-workspace"></i><span>Veterinary</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_doctor' %}">
+              <i class="fas fa-user-plus"></i><span>Add Veterinary</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_doctor'  %}">
+              <i class="fas fa-user-plus"></i><span>Manage Veterinary</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Veterinary Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-circle"></i><span>Dairy worker</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_Clerk' %}">
+              <i class="fas fa-user-plus"></i><span>Add Clerk</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_Clerk'  %}">
+              <i class="fas fa-th"></i><span>Manage Clerk</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-dog mr-2"></i><span>Goat</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'ad
+                d_dog' %}" class="nav-link">
+                    <i class="fas fa-dog"></i>
+                    <p class="pl-2">add Goat</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_category'  %}" class="nav-link">
+                    <i class="fas fa-dog"></i>
+                    <p class="pl-2">Add Breed</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_owner'  %}" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <p class="pl-2">Add Owner</p>
+                </a>
+            </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'manage_dog'  %}" class="nav-link">
+                    <i class="fas fa-th"></i>
+                    <p class="pl-2">Manage Goats</p>
+                </a>
+            </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <!-- <i class="fas fa-tractor mr-2"></i><span>Training</span><i class="bi bi-chevron-down ms-auto"></i> -->
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <!-- <a href="{% url 'add_team'  %}"  class="nav-link">
+                    <i class="fas fa-people-arrows mr-2"></i>
+                    <p>
+                        Add Team
+                        <i class="right fas "></i>
+                    </p>
+                </a> -->
+            </li>
+
+            <li class="nav-item pl-2">
+                <!-- <a href="{% url 'add_unit'  %}"  class="nav-link">
+                    <i class="fas fa-unity mr-2"></i>
+                    <p>
+                        Add Unit
+                        <i class="right fas "></i>
+                    </p>
+                </a> -->
+            </li>
+
+            <li class="nav-item pl-2">
+                <!-- <a href="{% url 'training'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Training
+                        <i class="right fas "></i>
+                    </p>
+                </a> -->
+            </li>
+
+            <li class="nav-item pl-2">
+
+            <!-- <a href="{% url 'add_course'  %}"  class="nav-link">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                <p>
+                    Add Course
+                    <i class="right fas "></i>
+                </p>
+            </a> -->
+           </li>
+           <li class="nav-item pl-2">
+
+            <!-- <a href="{% url 'add_training_session'  %}"  class="nav-link">
+                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                <p>
+                    Add Training Session
+                    <i class="right fas "></i>
+                </p>
+            </a> -->
+           </li>
+        </ul>
+      </li><!-- End Icons Nav -->
+      <li class="nav-item">
+        <!-- <a class="nav-link collapsed" data-bs-target="#assessment-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-hospital-user mr-2"></i><span>Assessment</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a> -->
+        <ul id="assessment-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <!-- <a href="{% url 'add_skilltest'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Skill Test
+                        <i class="right fas "></i>
+                    </p>
+                </a> -->
+            </li>
+
+            <li class="nav-item pl-2">
+                <!-- <a href="{% url 'add_assessment'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <p>
+                        Add Assessment
+                        <i class="right fas "></i>
+                    </p>
+                </a> -->
+            </li>
+          
+            <li class="nav-item pl-2">
+
+            <!-- <a href="{% url 'add_certificate'  %}"  class="nav-link">
+                <i class="fas fa-certificate mr-2"></i>
+                <p>
+                    Add Certificate    
+                <i class="right fas "></i>
+                </p>
+            </a> -->
+           </li>
+        </ul>
+      </li>
+      <!-- End assesment Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#casting-nav" data-bs-toggle="collapse" href="#">
+          <!-- <i class="fas fa-hospital-user mr-2"></i><span>Disposal and casting</span><i class="bi bi-chevron-down ms-auto"></i> -->
+        </a>
+        <ul id="casting-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_casting'  %}"  class="nav-link">
+                    <i class="fas fa-chalkboard-teacher mr-2"></i>
+                    <!-- <p> -->
+                       <!-- Casting -->
+                        <i class="right fas "></i>
+                    <!-- </p> -->
+                </a>
+            </li>
+          <li>
+            <!-- <a href="#">
+              <i class="fas fa-th"></i><span>...</span>
+            </a> -->
+        </ul>
+      </li>
+      <!-- End disposing and casting Nav -->
+
+      <li class="nav-heading">Pages</li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li>
+      <!-- End Contact Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li>
+      <!-- End Register Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Login</span>
+        </a>
+      </li>
+      <!-- End Login Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-dash-circle"></i>
+          <span>Error 404</span>
+        </a>
+      </li>
+      <!-- End Error 404 Page Nav -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link collapsed" href="#">
+          <i class="bi bi-file-earmark"></i>
+          <span>Blank</span>
+        </a>
+      </li>End Blank Page Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

@@ -1,0 +1,83 @@
+{% extends 'handler_templates/base_template.html'%}
+ {% load static %} 
+ {% block page_title %}
+<h4> {{train.dog}}</h4> 
+{% endblock page_title %}
+ {% block main_content %}
+<div class="main" id="main">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 mt-3 p-2">
+                <div class="card " style="  background: #e0eafc !important;">
+                    <div class="pid-box-1 d-flex justify-content-center" data-pid-imprintid="8011">
+    
+                        <img src="{{train.dog.dog_pic.url}}" data-orig-height="216" width="343" height="270" alt=" ">
+                       
+                    </div>
+                    <ul class="ddc-list-unstyled " style="list-style-type: none;">
+                      <li><b>On leash Obedience:</b> <a href="#" class="imprintdoglink"> {{train.onleash}}</a></li>
+                      <li><b>Off Leash Obedience:</b> <a href="#"> {{train.offleash }}</a></li>
+                      <li><b>Obedience Course:</b> {{train.obedience_course}}</li>
+                      <li><b>False Run:</b> {{train.false_run}}</li>
+                      <li><b>Attack:</b> {{train.attack}}</li>
+                      <li><b>Search and Attack:</b> {{train.search_and_attack}}</li>
+                      <li><b>Stand Off:</b> {{train.standoff}}</li>
+                      <li><b>Escort:</b> {{train.effort}}</li>
+                      <li><b>Building:</b> {{train.building}}</li>
+                      <li> <b>Gunfire Handler:</b>{{train.gunfire_handler}}</li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card">
+                <div class="pid-details pt-4">
+                  <ul class="ddc-list-unstyled " style="list-style-type: none;">
+                      <li><b>Gunfire Decoy:</b> <a href="#" class="imprintdoglink"> {{train.gunfire_decoy}}</a></li>
+                      <li><b>Scent Detection:</b> <a href="#"> {{train.scent_detection }}</a></li>
+                      <li><b>Sight Detection:</b> {{train.sight_detection}}</li>
+                      <li><b>Sound Detection:</b> {{train.sound_detection}}</li>
+                      <li><b>Vehicle Patrol:</b> {{train.vehicle_patrol}}</li>
+                      <li><b>Tracking:</b> {{train.tracking}}</li>
+                      <li><b>Daily Training Ratings:</b> {{train.daily_training_rating}}</li>
+                    </ul>
+              </div>
+              </div>          
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card" >
+                <div class="pid-box-1 d-flex justify-content-left" data-pid-imprintid="8011">
+                  <ul style="list-style-type: none;">
+                      <li>
+                          <b>Description</b>
+
+                      </li>
+                      <li>
+                          {{train.dog_description}}
+
+                      </li>
+                    
+
+                  </ul>
+                </div>
+
+
+              </div>
+              
+           </div>
+
+
+
+        </div>
+
+  
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

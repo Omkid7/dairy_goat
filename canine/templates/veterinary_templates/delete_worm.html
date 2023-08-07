@@ -1,0 +1,25 @@
+{% extends 'veterinary_templates/base_template.html'%} 
+{% block page_title %} 
+{% endblock page_title %} {% block main_content %}
+<div class="row mt-5">
+
+    <div class="col-md-4"></div>
+	<div class="col-md-4">
+		<div class="card card-info">
+			<div class="card-header">
+				<legend>Delete Handler</legend>
+			</div>
+			<form action="" method="POST" style="font-size: 13px" class="px-3 py-2">
+				{% csrf_token %}
+
+				<h2>Are You sure you want to delete Details</h2>
+				<button type="submit" class="btn btn-danger text-dark">Yes, Delete</button>
+				<a href="{{manage}}" class="btn btn-outline-secondary text-dark">Cancel</a>
+				<br />
+			</form>
+		</div>
+	</div>
+    <div class="col-md-5"></div>
+
+	{% endblock %}z
+</div>

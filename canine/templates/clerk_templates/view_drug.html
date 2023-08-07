@@ -1,0 +1,281 @@
+{% extends 'clerk_templates/base_template.html'%} 
+{% load static %} 
+
+{% block page_title %}
+<h4> {{Dogs.category}}</h4>
+ {% endblock page_title %}
+  {% block main_content %}
+  <style type="text/css">
+    body{
+        margin-top:20px;
+        color: #1a202c;
+        text-align: left;
+        background-color: #e2e8f0;    
+    }
+    .main-body {
+        padding: 15px;
+    }
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+    }
+    
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0,0,0,.125);
+        border-radius: .25rem;
+    }
+    
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+    
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+    
+    .gutters-sm>.col, .gutters-sm>[class*=col-] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+    .mb-3, .my-3 {
+        margin-bottom: 1rem!important;
+    }
+    
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+    .h-100 {
+        height: 100%!important;
+    }
+    .shadow-none {
+        box-shadow: none!important;
+    }
+    
+    </style>
+<div class="main" id="main">
+  
+  <div class="container">
+    <div class="main-body">
+    
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    <img src="{{Dogs.dog_pic.url}}" alt="Admin" class="rounded-circle" width="150">
+                    <div class="mt-3">
+                      <h4>{{Dogs.dog_name}}</h4>
+                      <p class="text-secondary mb-1">{{Dogs.dog_imprint }}</p>
+                      <p class="text-muted font-size-sm">{{Dogs.gender}}</p>
+                      <!-- <button class="btn btn-primary">Print</button>
+                      <button class="btn btn-outline-primary">Message</button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card mt-3">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Owners Name</h6>
+                    <span class="text-secondary">{{Dogs.manufacture}} </span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Email</h6>
+                    <span class="text-secondary">canine@mod.go.ke</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Tel</h6>
+                    <span class="text-secondary">0705426742</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">Nationality</h6>
+                    <span class="text-secondary">Kenyan</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                    <h6 class="mb-0">ID/Passport</h6>
+                    <span class="text-secondary">29696512</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Full Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{Dogs.dog_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">SVC Number</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{Dogs.emp_id}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Breed</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{Dogs.category}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Age in Service</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{Dogs.quantity}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Colour</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{Dogs.dog_color}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <!-- <div class="col-sm-12">
+                      <a class="btn btn-primary px-4 " href="page-edit-dog.html">Edit</a>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+                <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                      {% if Dogs.qrcode %}
+                      <img src="{{ Dogs.qrcode.url }}" alt="QR code" />
+                      {% endif %}
+                   
+                  </div>
+          
+<!-- 
+                <div class="col-sm-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">Scounting </i> <span>Patrolling</span></h6>
+                      <small>Scent Detection</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Sight Detection</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Sound Detection</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Vehicle Patrol</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                      <small>Tracking</small>
+                      <div class="progress mb-3" style="height: 5px">
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+
+
+
+            </div>
+          </div>
+
+        </div>
+    </div>
+    <!-- <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 mt-3 p-2">
+                <div class="card " style="  background: #e0eafc !important;
+                  ">
+                    <div class="pid-box-1 d-flex justify-content-center" data-pid-imprintid="8011">
+    
+                        <img src="{{Dogs.dog_pic.url}}" data-orig-height="216" width="343" height="270" alt=" ">
+                       
+                    </div>
+                </div>
+                <h4>{{Dogs.dog_name}}</h4>
+
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card">
+                <div class="pid-details pt-4">
+                  <ul class="ddc-list-unstyled " style="list-style-type: none;">
+                      <li><b>MWT Leader:</b> <a href="#" class="imprintdoglink"> {{Dogs.mwt}}</a></li>
+                      <li><b>Classified as:</b> <a href="#"> {{Dogs.dog_imprint }}</a></li>
+                      <li><b>Service No:</b> {{Dogs.dog_svcno}}</li>
+                      <li><b>Initial Owner:</b> {{Dogs.manufacture}}</li>
+                      <li><b>Years in Service:</b> {{Dogs.quantity}}</li>
+                      <li><b>Certification No:</b> {{Dogs.certificate}}</li>
+                      <li><b>Veterinary Assigned:</b> {{Dogs.veterinary}}</li>
+                      <li><b>ROD:</b> {{Dogs.valid_to}}</li>
+                      <li><b>Gender:</b> {{Dogs.gender}}</li>
+                      <li> <b>Colour:</b>{{Dogs.dog_color}}</li>
+
+                    </ul>
+              </div>
+              </div>          
+            </div>
+
+            <div class="col-md-4 mt-3 p-2">
+              <div class="card" >
+                <div class="pid-box-1 d-flex justify-content-left" data-pid-imprintid="8011">
+                  <ul style="list-style-type: none;">
+                      <li>
+                          <b>Description</b>
+
+                      </li>
+                      <li>
+                          {{Dogs.dog_description}}
+
+                      </li>
+                    
+
+                  </ul>
+                </div>
+
+
+              </div>
+              
+           </div>
+
+
+
+        </div>
+
+  
+
+    </div> -->
+</div>
+</div>
+
+{% endblock %}

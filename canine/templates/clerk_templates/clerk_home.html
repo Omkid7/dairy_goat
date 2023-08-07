@@ -1,0 +1,591 @@
+{% extends 'clerk_templates/base_template.html'%}
+{% load leaflet_tags %}
+
+{% load static %}
+{% block page_title %}
+
+
+<h4>Clerk Dashboard</h4>
+
+{% endblock page_title %} 
+{% block main_content %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+  var dataurl = '{% url "data" %}';
+
+  window.addEventListener("map:init", function (event) {
+    var map = event.detail.map;
+    // Download GeoJSON data with Ajax
+    fetch(dataurl)
+      .then(function(resp) {
+        return resp.json();
+      })
+      .then(function(data) {
+        L.geoJson(data, {
+          onEachFeature: function onEachFeature(feature, layer) {
+            var props = feature.properties;
+            var content = `<img width="300" src="${props.picture_url}"/><h3>${props.title}</h3><p>${props.description}</p>`;
+            layer.bindPopup(content);
+        }}).addTo(map);
+      });
+  });
+</script>
+
+{% leaflet_js %}
+{% leaflet_css %}
+
+
+<!-- Main CSS File -->
+<link href="{% static 'assets/css/style.css' %" rel="stylesheet">
+<main id="main" class="main">
+
+  <div class="pagetitle">
+    <h1>Clerk Login</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div><!-- End Page Title -->
+
+  <section class="section dashboard">
+    <div class="row">
+
+      <!-- Left side columns -->
+      <div class="col-lg-8">
+        <div class="row">
+
+          <!-- Clerk Card -->
+          <div class="col-xxl-8 col-md-6">
+            <div class="card info-card sales-card">
+
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Welcome!<span></span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <!-- <i class="fas fa-chalkboard-teacher"></i> -->
+                    <img src="{{request.user.clerk.profile_pic.url}}" class="img-circle elevation-1" width="38" height="38" alt="">
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{user.first_name}}  {{user.last_name}}</h6>
+                    <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End clerk Card -->
+
+          <!-- Vet Card -->
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Information <span></span></h5>
+
+                <div class="d-flex align-items-center">
+                  <!-- <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-briefcase-medical"></i>
+                  </div> -->
+                  <div class="ps-3">
+                    
+                    <marquee behavior="" direction="">
+                      <h3 class="my-4">{% for breed_list in breed_list %}        
+                          {{breed_list}},
+                           {% endfor %}</h3>
+                  </marquee>
+                    <span class="text-success small pt-1 fw-bold"></span> <span class="text-muted small pt-2 ps-1"></span>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End vet Card -->
+
+          <!-- military working dogs Card -->
+          <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Total MWD<span></span></h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fas fa-dog"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{total_dogs}}</h6>
+                    <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+                    <a href="{% url 'manage_dog' %}" class="stretched-link"></a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div><!-- military working dogs  Card -->
+          <!-- handler Card -->
+          <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+        
+              <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                          </li>
+                
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+              </div>
+        
+              <div class="card-body">
+                          <h5 class="card-title">Total Vet Officers<span></span></h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="fas fa-user"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6>{{doctors}}</h6>
+                              <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+                              <a href="#" class="stretched-link"></a>
+                            </div>
+                          </div>
+        
+                </div>
+               </div>
+        
+          </div><!-- End handler Card -->
+                      <!-- Vaccinated dog Card -->
+                      <div class="col-xxl-4 col-xl-12">
+
+                        <div class="card info-card customers-card">
+                    
+                          <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                      <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                      </li>
+                            
+                                  <li><a class="dropdown-item" href="#">Today</a></li>
+                                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                              </ul>
+                          </div>
+                    
+                          <div class="card-body">
+                                      <h5 class="card-title">Total Vaccinated Dogs<span></span></h5>
+                    
+                                      <div class="d-flex align-items-center">
+                                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                          <i class="fas fa-dog"></i>
+                                        </div>
+                                        <div class="ps-3">
+                                          <h6>{{prescip}}</h6>
+                                          <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+                    
+                                        </div>
+                                      </div>
+                    
+                            </div>
+                           </div>
+                    
+                      </div>
+                      <!-- End vaccinated Card -->
+                                  <!-- sick dogCard -->
+          <div class="col-xxl-4 col-xl-12">
+
+            <div class="card info-card customers-card">
+        
+              <div class="filter">
+                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                            <h6>Filter</h6>
+                          </li>
+                
+                      <li><a class="dropdown-item" href="#">Today</a></li>
+                      <li><a class="dropdown-item" href="#">This Month</a></li>
+                      <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+              </div>
+        
+              <div class="card-body">
+                          <h5 class="card-title">Total Handlers<span></span></h5>
+        
+                          <div class="d-flex align-items-center">
+                            <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="fas fa-dog"></i>
+                            </div>
+                            <div class="ps-3">
+                              <h6>{{handlers}}</h6>
+                              <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">Total</span>
+        
+                            </div>
+                          </div>
+        
+                </div>
+               </div>
+        
+          </div>
+          <!-- End sick dog Card -->
+
+          <!-- Reports -->
+          <div class="col-12">
+            <div class="card">
+
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+
+              <div class="card-body">
+                <h5 class="card-title">Breed Analysis <span>/Today</span></h5>
+
+                <!-- Line Chart -->
+            <!-- Bar Chart -->
+            <canvas id="barChart" style="max-height: 400px; left: 90px;"></canvas>
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                new Chart(document.querySelector('#barChart'), {
+                  type: 'bar',
+                  data: {
+                    labels: [{% for breed_list in breed_list %} '{{breed_list}}', {% endfor %} ],
+                    datasets: [{
+                      label: 'Bar Chart',
+                      data: [ {% for num_list in num_list %} '{{num_list}}',{% endfor %}],
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.3)',
+                        'rgba(255, 159, 64, 0.3)',
+                        'rgba(255, 205, 86, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                        'rgba(54, 162, 235, 0.3)',
+                        'rgba(153, 102, 255, 0.3)',
+                        'rgba(201, 203, 207, 0.3)'
+                      ],
+                      borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                      ],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
+                    }
+                  }
+                });
+              });
+            </script>
+            <!-- End Bar CHart -->
+                <!-- End Line Chart -->
+
+              </div>
+
+            </div>
+          </div><!-- End Reports -->
+
+                    <!-- Recent Added -->
+                    <div class="col-12">
+                      <div class="card recent-sales overflow-auto">
+                        <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                        <!-- <script>
+                          document.addEventListener("DOMContentLoaded", () => {
+                            new Chart(document.querySelector('#pieChart'), {
+                              type: 'pie',
+                              data: {
+                                labels: [{% for class_list in class_list %} '{{class_list}}', {% endfor %} ],
+                                datasets: [{
+                                  label: 'Bar Chart',
+                                  data: [ {% for class_num_list in class_num_list %} '{{class_num_list}}',{% endfor %}],
+                                  backgroundColor: [
+                                  'rgba(255, 99, 132, 0.8)',
+                                  'rgba(255, 159, 64, 0.8)',
+                                  'rgba(255, 205, 86, 0.8)',
+                                  'rgba(75, 192, 192, 0.8)',
+                                  'rgba(54, 162, 235, 0.8)',
+                                  'rgba(153, 102, 255, 0.8)',
+                                  'rgba(201, 203, 207, 0.8)'
+                                  ],
+                                  borderColor: [
+                                    'rgb(255, 99, 132)',
+                                    'rgb(255, 159, 64)',
+                                    'rgb(255, 205, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(54, 162, 235)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(201, 203, 207)'
+                                  ],
+                                  borderWidth: 0
+                                }]
+                              },
+                              options: {
+                                scales: {
+                                  y: {
+                                    beginAtZero: true
+                                  }
+                                }
+                              }
+                            });
+                          });
+                        </script>                                   -->
+                      </div>
+                    </div><!-- End Recent Sales -->
+
+        </div>
+      </div><!-- End Left side columns -->
+
+      <!-- Right side columns -->
+      <div class="col-lg-4">
+
+        <!-- Recent Activity -->
+        <div class="card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+
+     
+        </div><!-- End Recent Activity -->
+        <!-- Website Traffic -->
+        <div class="card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+
+          <div class="card-body pb-0">
+            <h5 class="card-title">Dog Specialities<span></span></h5>
+
+            <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
+
+            <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                echarts.init(document.querySelector("#trafficChart")).setOption({
+                  tooltip: {
+                    trigger: 'item'
+                  },
+                  legend: {
+                    top: '5%',
+                    left: 'center'
+                  },
+                  series: [{
+                    name: 'Access From',
+                    type: 'pie',
+                    radius: ['40%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                      show: false,
+                      position: 'center'
+                    },
+                    emphasis: {
+                      label: {
+                        show: true,
+                        fontSize: '18',
+                        fontWeight: 'bold'
+                      }
+                    },
+                    labelLine: {
+                      show: false
+                    },
+                    data: [{
+                        value: 1048,
+                        name: 'Explosive'
+                      },
+                      {
+                        value: 735,
+                        name: 'Protection Dogs'
+                      },
+                      {
+                        value: 580,
+                        name: 'Infantry Patrol Dogs'
+                      },
+                      {
+                        value: 484,
+                        name: 'Explosive Search Dogs'
+                      },
+                      {
+                        value: 300,
+                        name: 'Human Detection Dogs (U/T)'
+                      }
+                    ]
+                  }]
+                });
+              });
+            </script>
+
+          </div>
+        </div>
+        <!-- End Website Traffic -->
+
+        <!-- News & Updates Traffic -->
+        <div class="card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+
+          <div class="card-body pb-0">
+            <h5 class="card-title">News &amp; Updates <span>| Today</span></h5>
+
+            <div class="news">
+              <div class="post-item clearfix">
+                <img src="{{handler.profile_pic.url}}" alt="">
+                <h4><a href="#">Nihil blanditiis at in nihil autem</a></h4>
+                <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
+              </div>
+
+              <div class="post-item clearfix">
+                <img src="{{handler.profile_pic.url}}" alt="">
+                <h4><a href="#">Quidem autem et impedit</a></h4>
+                <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
+              </div>
+
+              <div class="post-item clearfix">
+                <img src="{{handler.profile_pic.url}}" alt="">
+                <h4><a href="#">Id quia et et ut maxime similique occaecati ut</a></h4>
+                <p>Fugiat voluptas vero eaque accusantium eos. Consequuntur sed ipsam et totam...</p>
+              </div>
+
+              <div class="post-item clearfix">
+                <img src="{{handler.profile_pic.url}}" alt="">
+                <h4><a href="#">Laborum corporis quo dara net para</a></h4>
+                <p>Qui enim quia optio. Eligendi aut asperiores enim repellendusvel rerum cuder...</p>
+              </div>
+
+              <div class="post-item clearfix">
+                <img src="{{handler.profile_pic.url}}" alt="">
+                <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
+                <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
+              </div>
+
+            </div><!-- End sidebar recent posts-->
+
+          </div>
+        </div><!-- End News & Updates -->
+
+      </div><!-- End Right side columns -->
+
+    </div>
+  </section>
+  <script>
+    var xValues = [{% for class_list in class_list %} '{{class_list}}', {% endfor %}];
+    var yValues = [{% for class_num_list in class_num_list %} '{{class_num_list}}',{% endfor %}];
+    var barColors = [
+      "#b91d47",
+      "#00aba9",
+      "#2b5797",
+      "#e8c3b9",
+      "#1e7145"
+    ];
+    
+    new Chart("myChart", {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Classification Analysis"
+        }
+      }
+    });
+    </script>
+
+</main><!-- End #main -->
+{% endblock main_content %}

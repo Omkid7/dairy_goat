@@ -1,0 +1,324 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-secondary elevation-4">
+    <!-- Brand Logo -->
+    <a href="" class="brand-link ml-2">
+        <img src="{% static 'images/logo.png' %}" alt="" width="80" height="80" class=" img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light mt-1 ml-3 mmust"><strong>Canine System</strong></span>
+    </a>
+
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        <div class="user-panel mr-3">
+            <div class="pull-left image sm-submenu-with-image a ml-2 ">
+                <img src="{{request.user.adminhod.profile_pic.url}}" class="img-circle mt-2" width="36" height="36" >
+            </div>
+            <div class="pull-left info">
+                <p>{{user.first_name}} {{user.last_name}}</p>
+                <a href="#"><i class="fa fa-circle text-success "></i>Active</a>
+            </div>
+        </div>
+
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+
+                <li class="nav-item">
+                    <a href="{% url  'admin_dashboard' %}" class="nav-link">
+                        <i class="fas fa-tachometer-alt mr-2"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-hospital-user mr-2"></i>
+                        <p>
+                            Handler
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'handler_form' %}" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <p class="pl-2">Add Handler</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'all_handler'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+                                <p class="pl-2">Manage Handlers</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <!-- <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-address-book mr-2"></i>
+                        <p>
+                            Trainer
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_pharmacist' %}" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <p class="pl-2">Add Trainer</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'manage_pharmacist'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+                                <p class="pl-2">Manage Trainers</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li> -->
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-briefcase-medical mr-2"></i>
+                        <p>
+                            Veterinary
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_doctor' %}" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <p class="pl-2">Add Veterinary</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'manage_doctor'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+                                <p class="pl-2">Manage Veterinary</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-chalkboard-teacher mr-2"></i>
+                        <p>
+                            Clerk
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_Clerk' %}" class="nav-link">
+                                <i class="fas fa-user-plus"></i>
+                                <p class="pl-2">Add Clerk</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'manage_Clerk'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+
+                                <p class="pl-2">Manage Clerks</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-dog mr-2"></i>
+                        <p>
+                            Canine Dog
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_dog' %}" class="nav-link">
+                                <i class="fas fa-dog"></i>
+                                <p class="pl-2">add Dog</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_category'  %}" class="nav-link">
+                                <i class="fas fa-dog"></i>
+                                <p class="pl-2">Add Breed</p>
+                            </a>
+                        </li>
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_owner'  %}" class="nav-link">
+                                <i class="fas fa-user"></i>
+                                <p class="pl-2">Add Owner</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'manage_dog'  %}" class="nav-link">
+                                <i class="fas fa-th"></i>
+                                <p class="pl-2">Manage Dogs</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-tractor mr-2"></i>
+                        <p>
+                            Training
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_team'  %}"  class="nav-link">
+                                <i class="fas fa-people-arrows mr-2"></i>
+                                <p>
+                                    Add Team
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_unit'  %}"  class="nav-link">
+                                <i class="fas fa-unity mr-2"></i>
+                                <p>
+                                    Add Unit
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'training'  %}"  class="nav-link">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                <p>
+                                    Add Training
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item pl-2">
+
+                        <a href="{% url 'add_course'  %}"  class="nav-link">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i>
+                            <p>
+                                Add Course
+                                <i class="right fas "></i>
+                            </p>
+                        </a>
+                       </li>
+                       <li class="nav-item pl-2">
+
+                        <a href="{% url 'add_training_session'  %}"  class="nav-link">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i>
+                            <p>
+                                Add Training Session
+                                <i class="right fas "></i>
+                            </p>
+                        </a>
+                       </li>
+
+                    </ul>
+                </li>
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-book-reader mr-2"></i>
+                        <p>
+                            Assessment
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_skilltest'  %}"  class="nav-link">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                <p>
+                                    Add Skill Test
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_assessment'  %}"  class="nav-link">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                <p>
+                                    Add Assessment
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+                      
+                        <li class="nav-item pl-2">
+
+                        <a href="{% url 'add_certificate'  %}"  class="nav-link">
+                            <i class="fas fa-certificate mr-2"></i>
+                            <p>
+                                Add Certificate    
+                            <i class="right fas "></i>
+                            </p>
+                        </a>
+                       </li>
+
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-book-reader mr-2"></i>
+                        <p>
+                        Disposal and casting
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+
+                        <li class="nav-item pl-2">
+                            <a href="{% url 'add_casting'  %}"  class="nav-link">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                <p>
+                                   Casting
+                                    <i class="right fas "></i>
+                                </p>
+                            </a>
+                        </li>
+
+                      
+                      
+                      
+
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

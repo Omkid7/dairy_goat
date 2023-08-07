@@ -1,0 +1,130 @@
+{% extends 'veterinary_templates/base_template.html'%} 
+{% block page_title %}
+<h5>Manage Prescription</h5>
+{% endblock page_title %} 
+{% block link %}
+<!-- <li class="breadcrumb-item active">all patients </li> -->
+{% endblock link %} 
+{% block main_content %}
+
+<section class="main" id="main">
+    {% if messages %}
+    <div class="form-group">
+        <div class="col-12">
+            {% for message in messages %} {% if message.tags == "error" %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% elif message.tags == "success" %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %} {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="card manage sc">
+                    <div class="card-header">
+                        <span>Manage Prescription</span>
+                        <div class="card-tools d-flex">
+
+                            <!-- <form role="form" method="POST" action="" enctype="multipart/form-data" class="mr-4 mt-1">
+                                {% csrf_token %}
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="text" name="search" class="form-control float-right" placeholder="Search">
+
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </form> -->
+
+
+                        </div>
+
+                    </div>
+                    <table class="table table-bordered table-hover dataTable" id="plist">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Service No</th>
+                                <th>Dog</th>
+                                <th>Breed</th>
+                                <th>Classification</th>
+                                <th>Vaccine</th>
+                                <th>Precription</th>
+                                <th>Date Prescribed</th>
+                                <th>Validity Date</th>
+                            
+                                <th class="text-center">Action</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for prescrip in prescrips %}
+                            <tr class="hov">
+                                <td>{{forloop.counter}}</td>
+
+                                <td>{{prescrip.dog_id.emp_id}}</td>
+
+                                <td>{{prescrip.dog_id.dog_name}}</td>
+                                <td>{{prescrip.dog_id.category}}</td>
+                                <td>{{prescrip.dog_id.dog_imprint}}</td>
+                                <td>{{prescrip.vaccination_id}}</td>
+                                <td>{{prescrip.prescribe}}</td>
+                                <td>{{prescrip.last_updated |date:"F d, Y"}}</td>
+
+
+                             <!-- Checks expired dogs -->
+
+                             {% for expire in expired %}
+                             {% if prescrip.dog_id == expire.dog_id %}
+                            <td class="">
+                                <div style="background-color: rgb(48, 58, 92);border-radius: 10px;font-size: 11px; width:120px;font-weight: 600;color: white;" class="d-flex justify-content-center ml-2 mt-2 px-1 "> EXPIRED </div>
+                            </td>
+                            {% endif %} 
+                            {% endfor %}
+                            <!-- Checks Not expired dogs -->
+
+
+                            {% for expire in expa %}
+                             {% if prescrip.dog_id == expire.dog_id %}
+                            <td>{{expire.valid_to}}</td>
+                            {% endif %} 
+                            {% endfor %}
+                            <!-- End Expire -->
+                             
+
+                                <td><a href="{% url 'doctor_prescrip_delete' prescrip.id %}" class="btn btn-sm btn-danger">Delete</a>
+
+
+
+                                    <a href="{% url 'doctor_prescrip_edit' prescrip.id  %}" class="btn btn-sm btn-success">Edit</a></td>
+
+
+
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+
+             
+            </div>
+        </div>
+</section>
+
+{% endblock %}

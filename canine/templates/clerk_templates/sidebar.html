@@ -1,0 +1,108 @@
+{% load static %}
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="{% url  'admin_dashboard' %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-hospital-user mr-2"></i><span>Handlers</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_handler' %}">
+              <i class="fas fa-user-plus"></i><span >Add Handler</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_handler' %}">
+              <i class="fas fa-th"></i><span>Manage Handlers</span>
+            </a>
+        </ul>
+      </li><!-- End Handlers Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="	bi bi-person-workspace"></i><span>Veterinary</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_doctor' %}">
+              <i class="fas fa-user-plus"></i><span>Add Veterinary</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_doctor'  %}">
+              <i class="fas fa-user-plus"></i><span>Manage Veterinary</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Veterinary Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-person-circle"></i><span>Incharge</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'add_incharge' %}">
+              <i class="fas fa-user-plus"></i><span>Add Incharge</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'manage_incharge'  %}">
+              <i class="fas fa-th"></i><span>Manage Incharge</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Tables Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="fas fa-dog mr-2"></i><span>Dog</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_dog' %}" class="nav-link">
+                    <i class="fas fa-dog"></i>
+                    <p class="pl-2">add Dog</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_category'  %}" class="nav-link">
+                    <i class="fas fa-dog"></i>
+                    <p class="pl-2">Add Breed</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+                <a href="{% url 'add_classification'  %}" class="nav-link">
+                    <i class="fas fa-user"></i>
+                    <p class="pl-2">Add Classification</p>
+                </a>
+            </li>
+            <li class="nav-item pl-2">
+              <a href="{% url 'add_owner'  %}" class="nav-link">
+                  <i class="fas fa-user"></i>
+                  <p class="pl-2">Add Owner</p>
+              </a>
+          </li>
+
+            <li class="nav-item pl-2">
+                <a href="{% url 'manage_dog'  %}" class="nav-link">
+                    <i class="fas fa-th"></i>
+                    <p class="pl-2">Manage Dogs</p>
+                </a>
+            </li>
+        </ul>
+      </li><!-- End Charts Nav -->
+
+    </ul>
+
+  </aside><!-- End Sidebar-->

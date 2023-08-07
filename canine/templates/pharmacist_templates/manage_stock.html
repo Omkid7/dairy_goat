@@ -1,0 +1,79 @@
+{% extends 'pharmacist_templates/base_template.html'%} {% block page_title %}
+<h5>dog Details</h5>
+
+{% endblock page_title %} {% block main_content %}
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+
+
+            <div class="card card-primar sc">
+                <div class="card-header">
+                    Dogs Details
+                </div>
+                {% include 'pharmacist_templates/alert_messeges.html' %}
+
+                <table class="table table-bordered table-hover dataTable" id="plist">
+                    <thead>
+
+                        <tr>
+                            <th>No</th>
+                            <th>Dog</th>
+                            <th>Breed</th>
+                            <th>Age</th>
+                            <th>ROD Date</th>
+                            <th class="text-center">Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for dog in dogs %}
+                        <tr class="hov">
+                            <td>{{forloop.counter}}</td>
+                            <td>{{dog.dog_name}}</td>
+                            <td>{{dog.category}}</td>
+                            <td>
+                                <span class="d-flex justify-content-center">
+                             {% if dog.quantity <= dog.reorder_level %}
+                            <div  class="d-flex justify-content-center px-2 mt-2"style="background-color:#a00b80;;border-radius: 10px;font-size: 11px; width:70px;font-weight: 600;color: white;">{{dog.quantity}}</div>
+                            {% else %}{{dog.quantity}}
+                            {% endif %}</span>
+
+                            </td>
+                            <!-- start expire -->
+                            {% if expired %}
+                            <!-- Checks expired dogs -->
+
+                            {% for expire in expired %} {% if dog.dog_name == expire.dog_name %}
+                            <td class="">
+                                <div style="background-color: rgb(48, 58, 92);border-radius: 10px;font-size: 11px; width:120px;font-weight: 600;color: white;" class="d-flex justify-content-center ml-2 mt-2 px-1 "> EXPIRED </div>
+                            </td>
+
+                            {% endif %} {% endfor %}
+                            <!-- Checks Not expired dogs -->
+
+                            {% for expire in expa %} {% if dog.dog_name == expire.dog_name %}
+                            <td>{{dog.valid_to}}</td>
+                            {% endif %} {% endfor %} {% endif %}
+                            <!-- End Expire -->
+                            <td></td>
+
+
+
+                            <td class="d-flex justify-content-center">
+
+                                <a href="{% url 'dog_detail2' dog.id %}" class="btn btn-sm btn-success">View</a>
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
